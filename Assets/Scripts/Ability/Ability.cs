@@ -26,4 +26,5 @@ public class AbilityContext2D
     public Rigidbody2D body;  
     public Vector2 inputDir;
     public Health playerHealth;
+    public Vector2 facingDir;
 }

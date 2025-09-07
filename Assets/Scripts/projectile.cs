@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class projectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     public float speed;
     public int damage;
@@ -8,16 +8,21 @@ public class projectile : MonoBehaviour
     public string teamOwner;
     public Vector2 direction;
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+    
     void Start()
     {
         rb.linearVelocity = direction * speed;
     }
 
-    void OnTriggerEnter2D(Collider2D hitInfo)
+    public virtual void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (hitInfo.CompareTag(teamOwner)) return;
-        Health health = hitInfo.GetComponent<Health>();
-        if (health != null)
+        if (hitInfo.CompareTag("Bullet")) return;
+            Health health = hitInfo.GetComponent<Health>();
+        if (health != null && !hitInfo.CompareTag(teamOwner))
         {
             health.TakeDamage(damage);
         }

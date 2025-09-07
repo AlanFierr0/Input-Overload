@@ -37,7 +37,8 @@ public class PlayerAbilityController : MonoBehaviour
             caster   = gameObject,
             body     = rb,
             inputDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")),
-            playerHealth   = health
+            playerHealth   = health,
+            facingDir = move.facingDir
         };
 
         foreach (var slot in slots)

@@ -21,12 +21,12 @@ public class Shooter : Enemy
         {
             GameObject projectile = Instantiate(projectilePrefab, shooter.position, Quaternion.identity);
             var rb = projectile.GetComponent<Rigidbody2D>();
-            projectile.GetComponent<projectile>().teamOwner = shooter.gameObject.tag;
-            projectile.GetComponent<projectile>().damage = damage;
-            projectile.GetComponent<projectile>().speed = projectileSpeed;
+            projectile.GetComponent<Projectile>().teamOwner = shooter.gameObject.tag;
+            projectile.GetComponent<Projectile>().damage = damage;
+            projectile.GetComponent<Projectile>().speed = projectileSpeed;
 
-            Vector2 playerPos2D = (Vector2)player.position;   
-            projectile.GetComponent<projectile>().direction = (playerPos2D - shooter.position).normalized;
+            Vector2 playerPos2D = (Vector2)player.position;
+            projectile.GetComponent<Projectile>().direction = (playerPos2D - shooter.position).normalized;
             shootTimer = 0f;
         }
     }
