@@ -52,6 +52,7 @@ MonoBehaviour:
   player: {fileID: 2755238829463150114}
   moveSpeed: 10
   lockMovement: 0
+  facingDir: {x: 0, y: 0}
 --- !u!61 &7528025661881722636
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -124,7 +125,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &9103897755782776200
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -198,6 +199,11 @@ MonoBehaviour:
   slots:
   - ability: {fileID: 11400000, guid: ad175b9134515d9409f4982ff48dc6ba, type: 2}
     key: 32
+    state: 0
+    activeUntil: 0
+    nextReadyTime: 0
+  - ability: {fileID: 11400000, guid: f17518efb7da0e940ba322319259f446, type: 2}
+    key: 101
     state: 0
     activeUntil: 0
     nextReadyTime: 0

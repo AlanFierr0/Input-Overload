@@ -198,5 +198,5 @@ MonoBehaviour:
   player: {fileID: 0}
   shooter: {fileID: 6831325819733568081}
   projectilePrefab: {fileID: 6059457718054694572, guid: 84960c9f742357c48b5a07c7d9b32883, type: 3}
-  shootInterval: 50
+  shootInterval: 0
   projectileSpeed: 8

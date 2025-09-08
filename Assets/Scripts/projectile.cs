@@ -18,14 +18,16 @@ public class Projectile : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D hitInfo)
+    public virtual void OnCollisionEnter2D(Collision2D hitInfo)
     {
-        if (hitInfo.CompareTag("Bullet")) return;
-            Health health = hitInfo.GetComponent<Health>();
-        if (health != null && !hitInfo.CompareTag(teamOwner))
+        if (hitInfo.collider.CompareTag("Bullet") || hitInfo.collider.CompareTag(teamOwner)) return;
+        Health health = hitInfo.collider.GetComponent<Health>();
+        if (health != null && !hitInfo.collider.CompareTag(teamOwner))
         {
             health.TakeDamage(damage);
+            Destroy(gameObject);
         }
+        Debug.Log($"Projectile hit {hitInfo.collider.name}");
         Destroy(gameObject);
     }
 
