@@ -11,9 +11,7 @@ public class Tomahawk : Projectile
         else if (!hitInfo.collider.CompareTag("Bullet") && !hitInfo.collider.CompareTag("Structure"))
         {
             Health health = hitInfo.collider.GetComponent<Health>();
-            Debug.Log("Hit " + hitInfo.collider.name);
             health.TakeDamage(damage);
-            Debug.Log("Dealt " + damage + " damage to " + hitInfo.collider.name);
         }
     }
 }
