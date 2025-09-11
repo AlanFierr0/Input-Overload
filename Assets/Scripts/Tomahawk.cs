@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Tomahawk : Projectile
 {
-    public void OnCollisionEnter2D(Collision2D hitInfo)
+    public override void OnCollisionEnter2D(Collision2D hitInfo)
     {
         if (hitInfo.collider.CompareTag("Player"))
         {

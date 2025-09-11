@@ -1011,11 +1011,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7195735659792627452, guid: 475b705ffcd5c644f85c3d52ba48c7c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.88
+      value: 7.6
       objectReference: {fileID: 0}
     - target: {fileID: 7195735659792627452, guid: 475b705ffcd5c644f85c3d52ba48c7c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.32
+      value: -1.66
       objectReference: {fileID: 0}
     - target: {fileID: 7195735659792627452, guid: 475b705ffcd5c644f85c3d52ba48c7c0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1122,6 +1122,10 @@ PrefabInstance:
       propertyPath: slots.Array.data[1].ability
       value: 
       objectReference: {fileID: 11400000, guid: f17518efb7da0e940ba322319259f446, type: 2}
+    - target: {fileID: 9068681212143167243, guid: 0cb1f6e2fd4c69c47bb50b7266466854, type: 3}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

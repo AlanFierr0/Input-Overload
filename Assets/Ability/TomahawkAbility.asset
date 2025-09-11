@@ -20,5 +20,5 @@ MonoBehaviour:
   abilityState: 0
   shooter: {fileID: 0}
   tomahawkPrefab: {fileID: 5129971398272475180, guid: 7e95a8e83725cf942876dd366ef4f39c, type: 3}
-  throwForce: 20
+  throwForce: 8
   maxTomahawks: 1
