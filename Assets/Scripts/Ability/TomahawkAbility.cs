@@ -9,6 +9,7 @@ public class TomahawkAbility : Ability
 
     public override bool CanStart(AbilityContext2D ctx)
     {
+        if (abilityCooldown > 0) return false;
         return GameObject.FindGameObjectsWithTag("Tomahawk").Length < maxTomahawks;
     }
 
