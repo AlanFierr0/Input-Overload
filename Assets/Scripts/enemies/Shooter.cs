@@ -46,11 +46,6 @@ public class Shooter : Enemy
         }
     }
 
-    public override void Die()
-    {
-        Object.Destroy(shooter.gameObject);
-    }
-
     void FixedUpdate()
     {
         Move();

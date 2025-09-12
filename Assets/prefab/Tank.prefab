@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5428098727584639136}
   - component: {fileID: 5185114516175666878}
   m_Layer: 0
-  m_Name: HeavyEnemy
+  m_Name: Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

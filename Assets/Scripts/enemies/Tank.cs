@@ -4,7 +4,7 @@ public class Tank : Enemy
 {
     [HideInInspector] public Rigidbody2D tank;
     public float attackCooldown;
-    private float attackTimer = 0f;
+    private float attackTimer;
 
     void Start()
     {
@@ -27,9 +27,6 @@ public class Tank : Enemy
             player.GetComponent<Health>().TakeDamage(damage);
             attackTimer = attackCooldown;
         }
-    }
-    public override void Die(){
-        Object.Destroy(tank.gameObject);
     }
 
 
