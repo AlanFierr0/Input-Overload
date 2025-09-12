@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4622217680290060481}
   - component: {fileID: 449902972305280461}
   - component: {fileID: 8375546068831111824}
+  - component: {fileID: 6357381214774879075}
   m_Layer: 0
   m_Name: Dasher
   m_TagString: Enemy
@@ -178,3 +179,26 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.2, y: 0.23}
   m_EdgeRadius: 0
+--- !u!114 &6357381214774879075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023341054860763681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da6a45c3eb787d46949141da32736e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: 
+  health: {fileID: 0}
+  speed: 10
+  damage: 1
+  player: {fileID: 0}
+  dasher: {fileID: 0}
+  attackCooldown: 1
+  dashForce: 30
+  dashCooldown: 1
+  dashDelay: 0.5
+  dashRange: 5

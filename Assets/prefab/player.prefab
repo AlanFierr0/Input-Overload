@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2755238829463150114}
-  moveSpeed: 10
+  moveSpeed: 5
   lockMovement: 0
   facingDir: {x: 0, y: 0}
 --- !u!61 &7528025661881722636
