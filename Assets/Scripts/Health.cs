@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [Header("Health Settings")]
     public int maxHealth;
     public int currentHealth;
     public bool vulnerable = true;

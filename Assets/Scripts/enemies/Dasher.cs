@@ -10,7 +10,7 @@ public class Dasher : Enemy
     private float attackTimer;
 
     [Header("Dash")]
-    public float dashForce = 12f;
+    public float dashForce = 10f;
     public float dashCooldown = 2f;
     public float dashDelay = 0.25f;     // tiempo de “wind-up”
     public float dashRange = 3f;        // distancia para habilitar dash
@@ -35,7 +35,11 @@ public class Dasher : Enemy
         {
             StartCoroutine(DashAfterDelay(direction));
         }
-        else if (distance >= 3f)
+        else if (distance < dashRange)
+        {
+            dasher.MovePosition(dasher.position + direction * speed * Time.fixedDeltaTime);
+        }
+        else
         {
             dasher.MovePosition(dasher.position - direction * speed * Time.fixedDeltaTime);
         }
@@ -43,9 +47,9 @@ public class Dasher : Enemy
 
     private IEnumerator DashAfterDelay(Vector2 dir)
     {
-        isDashingOrWindup = true;
-        lockedDashDir = dir;
         dasher.linearVelocity = Vector2.zero;
+        isDashingOrWindup = true;
+        lockedDashDir = dir.normalized;
         yield return new WaitForSeconds(dashDelay);
         dasher.AddForce(-lockedDashDir * dashForce, ForceMode2D.Impulse);
         lastDashTime = Time.time;

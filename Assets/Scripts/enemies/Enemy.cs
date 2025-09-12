@@ -9,9 +9,6 @@ public abstract class Enemy : MonoBehaviour
     [HideInInspector] public Transform player;
     public abstract void Attack();
     public abstract void Move();
-    public void Die() {
-        Object.Destroy(gameObject);
-    }
 
     protected virtual void Awake()
     {

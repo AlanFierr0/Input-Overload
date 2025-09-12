@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a42ee2eb5f099e3478474aa217cb15ed
+guid: 78f0819be61b7bb42bd8c63942c08296
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 835728601286446472
-    second: Shield_Metal_0
+      213: -9140167020092483991
+    second: chair256_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Shield_Metal_0
+      name: chair256_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 0
-        width: 29
-        height: 64
+        x: 37
+        y: 3
+        width: 176
+        height: 250
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 88d00582cba199b00800000000000000
-      internalID: 835728601286446472
+      spriteID: 96695ab958a972180800000000000000
+      internalID: -9140167020092483991
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Shield_Metal_0: 835728601286446472
+      chair256_0: -9140167020092483991
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
