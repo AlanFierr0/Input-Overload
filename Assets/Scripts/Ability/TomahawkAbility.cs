@@ -2,7 +2,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Tomahawk Ability", menuName = "Abilities/Tomahawk")]
 public class TomahawkAbility : Ability
 {
-    public Rigidbody2D shooter;
     public GameObject tomahawkPrefab;
     public float throwForce = 10f;
     public int maxTomahawks;
