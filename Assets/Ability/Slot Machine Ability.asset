@@ -15,9 +15,22 @@ MonoBehaviour:
   abilityName: 
   abilityIcon: {fileID: 0}
   abilityDescription: 
-  abilityCooldown: 0
+  abilityCooldown: 3
   abilityDuration: 0
   abilityState: 0
+  projectileList:
+  - slot: 0
+    projectilePrefab: {fileID: 729932537202891744, guid: 376ed1382877ef342bd3116ba71775ac, type: 3}
+    jackpotProjectiles: 5
+    projectileSpeed: 3
+  - slot: 4
+    projectilePrefab: {fileID: 6674396147527626741, guid: 77eb05b3352d1f5428f32f5532a622dd, type: 3}
+    jackpotProjectiles: 7
+    projectileSpeed: 5
+  - slot: 6
+    projectilePrefab: {fileID: 6059457718054694572, guid: 5197cab8ccccaeb4ca23b9b3b25b3d14, type: 3}
+    jackpotProjectiles: 8
+    projectileSpeed: 7
   jackpotProbability: 0.2
   slotDuration: 3
-  numberOfProjectiles: 12
+  numberOfProjectile: 1

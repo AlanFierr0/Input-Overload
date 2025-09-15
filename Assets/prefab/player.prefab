@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9103897755782776200}
   - component: {fileID: 4203612187819496234}
   - component: {fileID: 6512237712820012156}
+  - component: {fileID: 8195456571915785284}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -207,6 +208,16 @@ MonoBehaviour:
     state: 0
     activeUntil: 0
     nextReadyTime: 0
+  - ability: {fileID: 11400000, guid: a5f0c6b9105c5d442b1960b8ffdfc684, type: 2}
+    key: 113
+    state: 0
+    activeUntil: 0
+    nextReadyTime: 0
+  - ability: {fileID: 11400000, guid: a9a4f1f94ccce7b4a9adbaaf53d7958c, type: 2}
+    key: 114
+    state: 0
+    activeUntil: 0
+    nextReadyTime: 0
 --- !u!114 &6512237712820012156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,3 +233,25 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   vulnerable: 1
+--- !u!95 &8195456571915785284
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88993922322416334}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 220645ebdbc24e24792eebeb48a909e1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

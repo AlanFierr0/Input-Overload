@@ -57,13 +57,10 @@ public class SlotMachineAbility : Ability
         //animation or effect can be played here
         Debug.Log("Spinning the slot machine...");
         yield return new WaitForSeconds(slotDuration);
-
         bool isJackpot = Random.value < jackpotProbability;
-        Debug.Log(isJackpot ? "Jackpot!" : "No Jackpot.");
         Slots result = GetRandomSlot();
         Debug.Log($"Slot result: {result}");
         int projectilesToShoot = isJackpot ? GetJackpotCount(result) : numberOfProjectile;
-        Debug.Log($"Shooting {projectilesToShoot} projectiles.");
         GameObject prefab = slotProjectiles.ContainsKey(result) ? slotProjectiles[result] : null;
         ShootInCircle(ctx.caster.transform.position, prefab, projectilesToShoot,result);
     }
@@ -104,7 +101,6 @@ public class SlotMachineAbility : Ability
             float rad = angleDeg * Mathf.Deg2Rad;
             Vector2 dir = new Vector2(Mathf.Sin(rad), Mathf.Cos(rad)).normalized;
             var go = Object.Instantiate(prefab, origin + dir * 1f, Quaternion.identity);
-            Debug.Log($"Shooting projectile {i + 1} at angle {angleDeg} degrees.");
             var proj = go.GetComponent<Projectile>();
             proj.direction = dir;
             proj.teamOwner = "Player";
