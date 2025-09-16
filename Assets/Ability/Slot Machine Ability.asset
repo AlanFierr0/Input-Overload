@@ -31,6 +31,6 @@ MonoBehaviour:
     projectilePrefab: {fileID: 6059457718054694572, guid: 5197cab8ccccaeb4ca23b9b3b25b3d14, type: 3}
     jackpotProjectiles: 8
     projectileSpeed: 7
-  jackpotProbability: 0.2
+  jackpotProbability: 0
   slotDuration: 3
   numberOfProjectile: 1

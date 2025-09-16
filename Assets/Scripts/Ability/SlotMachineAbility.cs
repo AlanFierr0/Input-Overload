@@ -62,7 +62,6 @@ public class SlotMachineAbility : Ability
         Debug.Log($"Slot result: {result}");
         int projectilesToShoot = isJackpot ? GetJackpotCount(result) : numberOfProjectile;
         GameObject prefab = slotProjectiles.ContainsKey(result) ? slotProjectiles[result] : null;
-        //if there is only 1 proyectile to shoot shoot it forward
         if (projectilesToShoot <= 1)
         {
             Vector2 dir = ctx.facingDir.normalized;
