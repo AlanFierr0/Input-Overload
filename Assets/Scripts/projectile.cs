@@ -12,25 +12,27 @@ public class Projectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    
+
     void Start()
     {
         rb.linearVelocity = direction * speed;
     }
 
-    public virtual void OnCollisionEnter2D(Collision2D hitInfo)
+    public virtual void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (hitInfo.collider.CompareTag("Bullet") || hitInfo.collider.CompareTag(teamOwner))
+        if (hitInfo.CompareTag("Bullet") || hitInfo.CompareTag(teamOwner))
         {
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), hitInfo.collider);
+            //ignore trigger with bullets or same team
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), hitInfo);
             return;
         }
-        Health health = hitInfo.collider.GetComponent<Health>();
-        if (health != null && !hitInfo.collider.CompareTag(teamOwner))
+        Health health = hitInfo.GetComponent<Health>();
+        if (health != null && !hitInfo.CompareTag(teamOwner))
         {
             health.TakeDamage(damage);
             Destroy(gameObject);
         }
+        
         Destroy(gameObject);
     }
 

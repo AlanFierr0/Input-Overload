@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Rocket : Projectile
@@ -6,9 +7,9 @@ public class Rocket : Projectile
     public LayerMask damageableLayers;
     public GameObject explosionEffect;
 
-    public override void OnCollisionEnter2D(Collision2D collision)
+    public override void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector2 hitPosition = collision.contacts[0].point;
+        Vector2 hitPosition = collision.transform.position;
         GameObject explosion = Instantiate(explosionEffect, hitPosition, Quaternion.identity);
         explosion.transform.localScale = new Vector3(explosionRadius, explosionRadius, 1f);
         Destroy(explosion, 1f);

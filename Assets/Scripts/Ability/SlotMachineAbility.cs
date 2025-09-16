@@ -62,7 +62,21 @@ public class SlotMachineAbility : Ability
         Debug.Log($"Slot result: {result}");
         int projectilesToShoot = isJackpot ? GetJackpotCount(result) : numberOfProjectile;
         GameObject prefab = slotProjectiles.ContainsKey(result) ? slotProjectiles[result] : null;
-        ShootInCircle(ctx.caster.transform.position, prefab, projectilesToShoot,result);
+        //if there is only 1 proyectile to shoot shoot it forward
+        if (projectilesToShoot <= 1)
+        {
+            Vector2 dir = ctx.facingDir.normalized;
+            var go = Object.Instantiate(prefab, (Vector2)ctx.caster.transform.position + dir * 1f, Quaternion.identity);
+            var proj = go.GetComponent<Projectile>();
+            proj.direction = dir;
+            proj.teamOwner = "Player";
+            var slotConfig = projectileList.Find(p => p.slot == result);
+            proj.speed = slotConfig.projectileSpeed;
+            yield break;
+        } else
+        {
+            ShootInCircle(ctx.caster.transform.position, prefab, projectilesToShoot,result);
+        }
     }
 
     private int GetJackpotCount(Slots slot)
@@ -91,7 +105,7 @@ public class SlotMachineAbility : Ability
         return order[order.Length - 1];
     }
     private void ShootInCircle(Vector2 origin, GameObject prefab, int count, Slots slot)
-    {
+    {    
         float angleStep = 360f / count;
         float angleDeg = 0f; 
         var slotConfig = projectileList.Find(p => p.slot == slot);
