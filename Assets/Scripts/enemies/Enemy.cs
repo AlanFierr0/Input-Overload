@@ -6,6 +6,7 @@ public abstract class Enemy : MonoBehaviour
     [HideInInspector] public Health health;
     public float speed;
     public int damage;
+    public int expReward;
     [HideInInspector] public Transform player;
     public abstract void Attack();
     public abstract void Move();
