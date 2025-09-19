@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: ae02baaf3cef1974ea54725ebe42e01b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4586428514890812713
+    second: pixilart-drawing (1)_0
+  - first:
+      213: 6580627890384024833
+    second: pixilart-drawing (1)_1
+  - first:
+      213: 2888585509176655724
+    second: pixilart-drawing (1)_2
+  - first:
+      213: -3681389611279025612
+    second: pixilart-drawing (1)_3
+  - first:
+      213: 7205233696076400948
+    second: pixilart-drawing (1)_4
+  - first:
+      213: 1335777039326654478
+    second: pixilart-drawing (1)_5
+  - first:
+      213: 2986312398108007063
+    second: pixilart-drawing (1)_6
+  - first:
+      213: 2536923053961394689
+    second: pixilart-drawing (1)_7
+  - first:
+      213: -4993578742501358375
+    second: pixilart-drawing (1)_8
+  - first:
+      213: -7514987042689199612
+    second: pixilart-drawing (1)_9
+  - first:
+      213: -2048918263474770682
+    second: pixilart-drawing (1)_10
+  - first:
+      213: 2607972220647318082
+    second: pixilart-drawing (1)_11
+  - first:
+      213: -7098735359810928544
+    second: pixilart-drawing (1)_12
+  - first:
+      213: 7293422949395895404
+    second: pixilart-drawing (1)_13
+  - first:
+      213: 9160476760702418385
+    second: pixilart-drawing (1)_14
+  - first:
+      213: -7250808111134015028
+    second: pixilart-drawing (1)_15
+  - first:
+      213: 3069764965109607717
+    second: pixilart-drawing (1)_16
+  - first:
+      213: -3077230141278590157
+    second: pixilart-drawing (1)_17
+  - first:
+      213: -736781256517437163
+    second: pixilart-drawing (1)_18
+  - first:
+      213: -9106498324342411139
+    second: pixilart-drawing (1)_19
+  - first:
+      213: -7007064602508464373
+    second: pixilart-drawing (1)_20
+  - first:
+      213: 712259381906864034
+    second: pixilart-drawing (1)_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_0
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 427
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d2f53ec09bb950c0800000000000000
+      internalID: -4586428514890812713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_1
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 427
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1053e5d5336135b50800000000000000
+      internalID: 6580627890384024833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_2
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 426
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6fb0d95731561820800000000000000
+      internalID: 2888585509176655724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_3
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 426
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43a76e347a319ecc0800000000000000
+      internalID: -3681389611279025612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_4
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 426
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4390f422fd12ef360800000000000000
+      internalID: 7205233696076400948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_5
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 426
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e003038d322a98210800000000000000
+      internalID: 1335777039326654478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_6
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 410
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79a929dcd43817920800000000000000
+      internalID: 2986312398108007063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_7
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 410
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10a3edd8316f43320800000000000000
+      internalID: 2536923053961394689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_8
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 409
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d4c34f379e33bab0800000000000000
+      internalID: -4993578742501358375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_9
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 409
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 402d8dcc91765b790800000000000000
+      internalID: -7514987042689199612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_10
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 409
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60da6cbe1b7c093e0800000000000000
+      internalID: -2048918263474770682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_11
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 409
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24225c3cae0613420800000000000000
+      internalID: 2607972220647318082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_12
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 393
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06007fb0dc93c7d90800000000000000
+      internalID: -7098735359810928544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_13
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 393
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c649c6fb781773560800000000000000
+      internalID: 7293422949395895404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_14
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 392
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dd73ee541d802f70800000000000000
+      internalID: 9160476760702418385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_15
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 392
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc106597074ff5b90800000000000000
+      internalID: -7250808111134015028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_16
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 392
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52d2c41b8fef99a20800000000000000
+      internalID: 3069764965109607717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_17
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 392
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33be6f88d7b7b45d0800000000000000
+      internalID: -3077230141278590157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_18
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 375
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519bc10d95d66c5f0800000000000000
+      internalID: -736781256517437163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_19
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 375
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7071e5b5083f9180800000000000000
+      internalID: -9106498324342411139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_20
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 375
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0fe4497ed7e1ce90800000000000000
+      internalID: -7007064602508464373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixilart-drawing (1)_21
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 375
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a77f76522472e900800000000000000
+      internalID: 712259381906864034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 72e452cb5e4026740bbcbdd8006924f3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      pixilart-drawing (1)_0: -4586428514890812713
+      pixilart-drawing (1)_1: 6580627890384024833
+      pixilart-drawing (1)_10: -2048918263474770682
+      pixilart-drawing (1)_11: 2607972220647318082
+      pixilart-drawing (1)_12: -7098735359810928544
+      pixilart-drawing (1)_13: 7293422949395895404
+      pixilart-drawing (1)_14: 9160476760702418385
+      pixilart-drawing (1)_15: -7250808111134015028
+      pixilart-drawing (1)_16: 3069764965109607717
+      pixilart-drawing (1)_17: -3077230141278590157
+      pixilart-drawing (1)_18: -736781256517437163
+      pixilart-drawing (1)_19: -9106498324342411139
+      pixilart-drawing (1)_2: 2888585509176655724
+      pixilart-drawing (1)_20: -7007064602508464373
+      pixilart-drawing (1)_21: 712259381906864034
+      pixilart-drawing (1)_3: -3681389611279025612
+      pixilart-drawing (1)_4: 7205233696076400948
+      pixilart-drawing (1)_5: 1335777039326654478
+      pixilart-drawing (1)_6: 2986312398108007063
+      pixilart-drawing (1)_7: 2536923053961394689
+      pixilart-drawing (1)_8: -4993578742501358375
+      pixilart-drawing (1)_9: -7514987042689199612
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

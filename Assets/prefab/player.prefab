@@ -218,6 +218,11 @@ MonoBehaviour:
     state: 0
     activeUntil: 0
     nextReadyTime: 0
+  - ability: {fileID: 11400000, guid: 82f4f3e31f402ba4c97d03318183a1b6, type: 2}
+    key: 282
+    state: 0
+    activeUntil: 0
+    nextReadyTime: 0
 --- !u!114 &6512237712820012156
 MonoBehaviour:
   m_ObjectHideFlags: 0

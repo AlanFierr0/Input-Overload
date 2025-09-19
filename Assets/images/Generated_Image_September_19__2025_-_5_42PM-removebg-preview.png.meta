@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 586800f97f316eb478ec026406e8dd94
+guid: a56418ac578e6d34d8eac0d8a2e5dfa0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2977923668980707122
-    second: Generated_Image_September_14__2025_-_3_38PM-removebg-preview (1)_0
+      213: 2469937954897028679
+    second: Generated_Image_September_19__2025_-_5_42PM-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Generated_Image_September_14__2025_-_3_38PM-removebg-preview (1)_0
+      name: Generated_Image_September_19__2025_-_5_42PM-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 76
-        width: 357
-        height: 348
+        x: 127
+        y: 139
+        width: 246
+        height: 222
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 23fa2d99cc5b35920800000000000000
-      internalID: 2977923668980707122
+      spriteID: 74664e2db7bf64220800000000000000
+      internalID: 2469937954897028679
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Generated_Image_September_14__2025_-_3_38PM-removebg-preview (1)_0: 2977923668980707122
+      Generated_Image_September_19__2025_-_5_42PM-removebg-preview_0: 2469937954897028679
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: wall
+  m_Name: pixilart-drawing (1)_12
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 8340504394577090320, guid: eb731a5558b021c449d5bc9d0a497941, type: 3}
+  m_Sprite: {fileID: -7098735359810928544, guid: ae02baaf3cef1974ea54725ebe42e01b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
