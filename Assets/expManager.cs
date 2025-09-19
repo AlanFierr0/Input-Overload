@@ -9,8 +9,6 @@ public class expManager : MonoBehaviour
     public int prevLvlExp;
     public int nextLvlExp;
 
-
-
     void Start()
     {
 
@@ -21,7 +19,6 @@ public class expManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F10))
         {
             GainExp(50);
-            Debug.Log("Current Level: " + currentLvl + " Total Exp: " + totalExp + " Next Level Exp: " + nextLvlExp);
         }
     }
 
