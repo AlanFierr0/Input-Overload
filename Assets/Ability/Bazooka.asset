@@ -20,4 +20,4 @@ MonoBehaviour:
   abilityState: 0
   rocketPrefab: {fileID: 6059457718054694572, guid: 5197cab8ccccaeb4ca23b9b3b25b3d14, type: 3}
   explosionRadius: 2
-  rocketSpeed: 5
+  rocketSpeed: 10
