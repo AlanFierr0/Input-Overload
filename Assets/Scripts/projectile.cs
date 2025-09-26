@@ -18,8 +18,9 @@ public class Projectile : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D hitInfo)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        Collider2D hitInfo = collision.collider;
         if (hitInfo.CompareTag("Bullet") || hitInfo.CompareTag(teamOwner))
         {
             //ignore trigger with bullets or same team

@@ -8,20 +8,17 @@ public class expManager : MonoBehaviour
     public int totalExp;
     public int prevLvlExp;
     public int nextLvlExp;
-
-    void Start()
-    {
-
-    }
+    public AbilityManager abilityManager;
+    public int testExpGain = 50;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F10))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            GainExp(50);
+            GainExp(testExpGain);
+            Debug.Log("Gained " + testExpGain + " EXP. Total EXP: " + totalExp + ". Current Level: " + currentLvl);
         }
     }
-
     public void GainExp(int exp)
     {
         totalExp += exp;
@@ -34,11 +31,21 @@ public class expManager : MonoBehaviour
     {
         currentLvl++;
         UpdateLvl();
+        GainAbility();
     }
 
     void UpdateLvl()
     {
         prevLvlExp = (int)expCurve.Evaluate(currentLvl);
         nextLvlExp = (int)expCurve.Evaluate(currentLvl + 1);
+    }
+
+    void GainAbility()
+    {
+        if (abilityManager == null)
+        {
+            abilityManager = GetComponent<AbilityManager>();
+        }
+        abilityManager.AddAbility();
     }
 }

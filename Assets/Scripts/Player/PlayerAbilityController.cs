@@ -48,19 +48,21 @@ public class PlayerAbilityController : MonoBehaviour
             case AbilityState.Ready:
                 if (slot.ability != null && Input.GetKeyDown(slot.key) && Time.time >= nextReadyTime && slot.ability.CanStart(ctx))
                 {
+                    Debug.Log("PAC Ability " + slot.ability.name + " started.");
                     slot.ability.OnStart(ctx);
+                    
 
                     if (slot.ability.abilityDuration > 0f)
-                    {
-                        activeTimer = slot.ability.abilityDuration;
-                        if (move) move.lockMovement = true; 
-                        slot.state = AbilityState.Active;
-                    }
-                    else
-                    {
-                        nextReadyTime = Time.time + slot.ability.abilityCooldown;
-                        slot.state = AbilityState.Cooldown;
-                    }
+                        {
+                            activeTimer = slot.ability.abilityDuration;
+                            if (move) move.lockMovement = true;
+                            slot.state = AbilityState.Active;
+                        }
+                        else
+                        {
+                            nextReadyTime = Time.time + slot.ability.abilityCooldown;
+                            slot.state = AbilityState.Cooldown;
+                        }
                 }
                 break;
 

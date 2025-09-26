@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Health : MonoBehaviour
 {
@@ -6,33 +7,25 @@ public class Health : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public bool vulnerable = true;
-
-    public void TakeDamage(int damage)
-    {
-        if (!vulnerable) return;
-        else
-            maxHealth -= damage;
-        
-    }
-    public void Heal(int amount)
-    {
-        
-            maxHealth += amount;
-    }
-    
-    void Start()
+    public event Action OnDeath;
+    void Awake()
     {
         currentHealth = maxHealth;
     }
-
-    void Update()
+    public void TakeDamage(int amount)
     {
-    if (maxHealth <= 0)
+        currentHealth = Mathf.Max(0, currentHealth - amount);
+        if (currentHealth <= 0)
         {
+            OnDeath?.Invoke();
             Destroy(gameObject);
         }
-
     }
+    public void Heal(int amount)
+    {
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+    }
+    
 
     public void ChangeVulnerability(bool state)
     {

@@ -13,7 +13,6 @@ public class BazookaAbility : Ability
 
     public override void OnStart(AbilityContext2D ctx)
     {
-        Debug.Log("Bazooka Ability Activated");
         Vector2 shootDir = ctx.inputDir.normalized;
         if (shootDir == Vector2.zero) shootDir = ctx.facingDir * 1f;
         Vector2 spawnPos = (Vector2)ctx.body.transform.position + shootDir * 1f;

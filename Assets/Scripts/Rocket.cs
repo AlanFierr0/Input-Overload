@@ -7,7 +7,7 @@ public class Rocket : Projectile
     public LayerMask damageableLayers;
     public GameObject explosionEffect;
 
-    public override void OnTriggerEnter2D(Collider2D collision)
+    public override void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 hitPosition = collision.transform.position;
         GameObject explosion = Instantiate(explosionEffect, hitPosition, Quaternion.identity);

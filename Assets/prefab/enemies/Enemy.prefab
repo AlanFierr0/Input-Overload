@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.88, y: -1.32, z: -0.035488036}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -149,10 +149,11 @@ MonoBehaviour:
   health: {fileID: 0}
   speed: 3
   damage: 1
+  expReward: 15
   player: {fileID: 0}
   shooter: {fileID: 0}
   projectilePrefab: {fileID: 6059457718054694572, guid: 84960c9f742357c48b5a07c7d9b32883, type: 3}
-  shootInterval: 1000
+  shootInterval: 2
   projectileSpeed: 10
 --- !u!61 &6479141740809424019
 BoxCollider2D:

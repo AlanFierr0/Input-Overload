@@ -16,4 +16,20 @@ public abstract class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         health = GetComponent<Health>();
     }
+    void OnEnable()
+    {
+        if (health != null)
+            health.OnDeath += HandleDeath;
+    }
+
+        void OnDisable()
+    {
+        if (health != null)
+            health.OnDeath -= HandleDeath;
+    }
+    void HandleDeath()
+    {
+        player.GetComponent<expManager>().GainExp(expReward);
+        Destroy(gameObject);
+    }
 }
