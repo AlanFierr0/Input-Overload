@@ -12,12 +12,12 @@ public class Dasher : Enemy
     [Header("Dash")]
     public float dashForce = 10f;
     public float dashCooldown = 2f;
-    public float dashDelay = 0.25f;     // tiempo de “wind-up”
-    public float dashRange = 3f;        // distancia para habilitar dash
+    public float dashDelay = 0.25f;    
+    public float dashRange = 3f;        
 
     private float lastDashTime = -999f;
-    private bool isDashingOrWindup = false; // *** evita mezclar movimiento con dash/windup
-    private Vector2 lockedDashDir;          // *** dirección bloqueada para el dashs
+    private bool isDashingOrWindup = false;
+    private Vector2 lockedDashDir;          
 
     void Start()
     {
