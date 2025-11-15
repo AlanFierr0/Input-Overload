@@ -46,6 +46,10 @@ public class expManager : MonoBehaviour
         {
             abilityManager = GetComponent<AbilityManager>();
         }
-        abilityManager.AddAbility();
+        
+        if (abilityManager != null)
+        {
+            abilityManager.AddAbility();
+        }
     }
 }

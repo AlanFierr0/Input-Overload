@@ -506,7 +506,7 @@ MonoBehaviour:
   prevLvlExp: 0
   nextLvlExp: 0
   abilityManager: {fileID: 1239123744}
-  testExpGain: 500
+  testExpGain: 50
 --- !u!114 &507760619 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6512237712820012156, guid: 0cb1f6e2fd4c69c47bb50b7266466854, type: 3}
