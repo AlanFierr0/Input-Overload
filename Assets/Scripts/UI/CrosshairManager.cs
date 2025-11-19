@@ -79,7 +79,6 @@ public class CrosshairManager : MonoBehaviour
         // Añadir el componente CrosshairUI
         CrosshairUI crosshairUI = crosshairObj.AddComponent<CrosshairUI>();
         crosshairUI.crosshairImage = image;
-        crosshairUI.crosshairColor = Color.white;
         crosshairUI.crosshairSize = new Vector2(120, 120);
         crosshairUI.hideMouseCursor = true;
         

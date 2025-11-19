@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class CrosshairUI : MonoBehaviour
 {
     public Image crosshairImage;
-    public Color crosshairColor = Color.white;
-    public Vector2 crosshairSize = new Vector2(80, 80); // Aumentado de 60 a 80
+    public bool useNativeSize = false; // Si es true, usa el tamaño original de la imagen
+    public Vector2 crosshairSize = new Vector2(64, 64); // Tamaño del crosshair (solo si useNativeSize es false)
     public float offsetFromCenter = 0f;
     public bool hideMouseCursor = true;
     
@@ -46,8 +46,6 @@ public class CrosshairUI : MonoBehaviour
             
             // Actualizar rectTransform después de mover
             rectTransform = GetComponent<RectTransform>();
-            
-            Debug.Log("CrosshairUI: Created independent canvas with sorting order 32767");
         }
         else
         {
@@ -78,19 +76,56 @@ public class CrosshairUI : MonoBehaviour
 
     void SetupCrosshairImage()
     {
-        if (crosshairImage == null) return;
+        // Validar que el componente Image está asignado
+        if (crosshairImage == null)
+        {
+            Debug.LogError("CrosshairUI: El componente 'Crosshair Image' no está asignado! Asigna un componente Image en el Inspector.");
+            enabled = false;
+            return;
+        }
         
-        crosshairImage.color = crosshairColor;
-        crosshairImage.raycastTarget = false; // No bloquear raycast para que los botones funcionen
+        // Validar que hay un sprite asignado a la imagen
+        if (crosshairImage.sprite == null)
+        {
+            Debug.LogError("CrosshairUI: No hay ningún sprite asignado al Image! Debes asignar una imagen PNG en el campo 'Source Image' del componente Image.");
+            enabled = false;
+            return;
+        }
         
+        // Detectar si está usando el sprite por defecto de Unity (círculo blanco)
+        if (crosshairImage.sprite.name == "UISprite" || crosshairImage.sprite.name.Contains("Knob"))
+        {
+            Debug.LogError($"CrosshairUI: Estás usando el sprite por defecto de Unity '{crosshairImage.sprite.name}'. Debes asignar TU imagen PNG personalizada en el campo 'Source Image' del componente Image!");
+            enabled = false;
+            return;
+        }
+        
+        // Usar color blanco para mantener los colores originales del sprite
+        crosshairImage.color = Color.white;
+        
+        // No bloquear raycast para que los botones funcionen
+        crosshairImage.raycastTarget = false;
+        
+        // Asegurar que la imagen esté activa
+        crosshairImage.gameObject.SetActive(true);
+        crosshairImage.enabled = true;
+        
+        // Configurar tamaño y posición
         RectTransform imageRect = crosshairImage.GetComponent<RectTransform>();
         if (imageRect != null)
         {
-            imageRect.sizeDelta = crosshairSize;
+            if (useNativeSize)
+            {
+                // Usar el tamaño original de la imagen
+                crosshairImage.SetNativeSize();
+            }
+            else
+            {
+                // Usar el tamaño personalizado
+                imageRect.sizeDelta = crosshairSize;
+            }
             imageRect.anchoredPosition = Vector2.zero;
         }
-
-        if (crosshairImage.sprite == null) crosshairImage.sprite = CreateCrosshairSprite();
         
         // Asegurar que el crosshair esté en el layer más alto de UI
         crosshairImage.transform.SetAsLastSibling();
@@ -163,48 +198,6 @@ public class CrosshairUI : MonoBehaviour
     public Vector2 GetDirectionFromPosition(Vector2 fromPosition)
     {
         return (GetMouseWorldPosition() - fromPosition).normalized;
-    }
-    
-    Sprite CreateCrosshairSprite()
-    {
-        int size = 64;
-        Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
-        Color[] pixels = new Color[size * size];
-
-        for (int i = 0; i < pixels.Length; i++)
-        {
-            pixels[i] = Color.clear;
-        }
-
-        int center = size / 2;
-        int thickness = 4;
-        int length = 20;
-
-        for (int x = center - length; x <= center + length; x++)
-        {
-            for (int y = center - thickness / 2; y <= center + thickness / 2; y++)
-            {
-                if (x >= 0 && x < size && y >= 0 && y < size)
-                {
-                    pixels[y * size + x] = crosshairColor;
-                }
-            }
-        }
-
-        for (int y = center - length; y <= center + length; y++)
-        {
-            for (int x = center - thickness / 2; x <= center + thickness / 2; x++)
-            {
-                if (x >= 0 && x < size && y >= 0 && y < size)
-                {
-                    pixels[y * size + x] = crosshairColor;
-                }
-            }
-        }
-
-        texture.SetPixels(pixels);
-        texture.Apply();
-        return Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size);
     }
 }
 
