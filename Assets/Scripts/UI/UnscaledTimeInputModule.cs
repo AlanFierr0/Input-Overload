@@ -3,24 +3,25 @@ using UnityEngine.EventSystems;
 
 /// <summary>
 /// Módulo de input personalizado que funciona incluso cuando Time.timeScale = 0
+/// Procesa hover, clicks y movimiento del mouse correctamente cuando el juego está pausado
 /// </summary>
 public class UnscaledTimeInputModule : StandaloneInputModule
 {
-    private bool m_ForceModuleActive;
-
     protected override void Awake()
     {
         base.Awake();
-        m_ForceModuleActive = true;
     }
 
     public override void UpdateModule()
     {
-        // Actualizar el módulo incluso con tiempo pausado
-        if (eventSystem.isFocused || m_ForceModuleActive)
-        {
-            base.UpdateModule();
-        }
+        // SIEMPRE actualizar el módulo, incluso con tiempo pausado
+        base.UpdateModule();
+    }
+
+    public override void Process()
+    {
+        // SIEMPRE procesar eventos, incluso con tiempo pausado
+        base.Process();
     }
 
     public override bool IsModuleSupported()
@@ -30,13 +31,17 @@ public class UnscaledTimeInputModule : StandaloneInputModule
 
     public override bool ShouldActivateModule()
     {
-        // Activar el módulo incluso con tiempo pausado
-        if (!base.ShouldActivateModule())
-            return false;
-
-        return m_ForceModuleActive || Input.GetMouseButtonDown(0) || 
-               Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2) ||
-               Input.touchCount > 0;
+        // SIEMPRE activar el módulo
+        return true;
+    }
+    
+    public override void ActivateModule()
+    {
+        base.ActivateModule();
+        
+        // Mantener el cursor oculto para usar el crosshair personalizado
+        // Cursor.visible = true;
+        // Cursor.lockState = CursorLockMode.None;
     }
 }
 

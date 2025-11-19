@@ -107,6 +107,21 @@ public class AbilityManager : MonoBehaviour
         List<Ability> abilitiesCopy = poolManager.GetAvailableAbilities();
         List<KeyCode> availableKeys = new List<KeyCode>(predefinedKeys);
 
+        // FILTRAR EXPLÍCITAMENTE LAS TECLAS WASD ANTES DE GENERAR OPCIONES
+        availableKeys.RemoveAll(key => 
+            key == KeyCode.W || 
+            key == KeyCode.A || 
+            key == KeyCode.S || 
+            key == KeyCode.D
+        );
+
+        // Verificar que quedan teclas disponibles después del filtrado
+        if (availableKeys.Count == 0)
+        {
+            Debug.LogError("AbilityManager: No hay teclas disponibles después de filtrar WASD!");
+            return options;
+        }
+
         // Asegurarse de no exceder el número de habilidades disponibles
         int optionsCount = Mathf.Min(count, abilitiesCopy.Count, availableKeys.Count);
 

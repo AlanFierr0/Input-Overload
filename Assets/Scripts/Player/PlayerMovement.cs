@@ -7,17 +7,9 @@ public class PlayerMovement : MonoBehaviour
     public bool lockMovement = false;
     public Vector2 facingDir;
     
-    [Header("Player Sprites")]
-    [Tooltip("Sprite cuando el personaje mira hacia adelante (por defecto)")]
     public Sprite playerSprite;
-    
-    [Tooltip("Sprite cuando el personaje mira hacia la izquierda")]
     public Sprite playerLeftSprite;
-    
-    [Tooltip("Sprite cuando el personaje mira hacia la derecha")]
     public Sprite playerRightSprite;
-    
-    [Tooltip("Sprite cuando el personaje está de espaldas (mirando hacia arriba)")]
     public Sprite playerBackSprite;
     
     private SpriteRenderer spriteRenderer;
@@ -28,15 +20,10 @@ public class PlayerMovement : MonoBehaviour
         if (player == null) player = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-        // Guardar el sprite inicial como sprite por defecto
         if (spriteRenderer != null)
         {
             defaultSprite = spriteRenderer.sprite;
-            // Si no se asignó playerSprite, usar el sprite actual
-            if (playerSprite == null)
-            {
-                playerSprite = defaultSprite;
-            }
+            if (playerSprite == null) playerSprite = defaultSprite;
         }
     }
     
@@ -59,84 +46,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (spriteRenderer == null) return;
         
-        // Determinar la dirección predominante
         float absX = Mathf.Abs(moveX);
         float absY = Mathf.Abs(moveY);
         
-        // Si el movimiento es principalmente horizontal
+        spriteRenderer.flipX = false;
+        
         if (absX > absY)
         {
-            if (moveX > 0)
-            {
-                // Moviendo a la derecha
-                if (playerRightSprite != null)
-                {
-                    spriteRenderer.sprite = playerRightSprite;
-                    spriteRenderer.flipX = false;
-                }
-            }
-            else if (moveX < 0)
-            {
-                // Moviendo a la izquierda
-                if (playerLeftSprite != null)
-                {
-                    spriteRenderer.sprite = playerLeftSprite;
-                    spriteRenderer.flipX = false;
-                }
-            }
+            if (moveX > 0 && playerRightSprite != null) spriteRenderer.sprite = playerRightSprite;
+            else if (moveX < 0 && playerLeftSprite != null) spriteRenderer.sprite = playerLeftSprite;
         }
-        // Si el movimiento es principalmente vertical
-        else if (absY > absX)
+        else
         {
-            if (moveY > 0)
-            {
-                // Moviendo hacia arriba - mostrar de espaldas
-                if (playerBackSprite != null)
-                {
-                    spriteRenderer.sprite = playerBackSprite;
-                    spriteRenderer.flipX = false;
-                }
-            }
-            else if (moveY < 0)
-            {
-                // Moviendo hacia abajo - usar sprite por defecto (frente)
-                if (playerSprite != null)
-                {
-                    spriteRenderer.sprite = playerSprite;
-                    spriteRenderer.flipX = false;
-                }
-            }
-        }
-        // Si hay movimiento diagonal, priorizar la dirección más fuerte
-        else if (absX > 0.1f || absY > 0.1f)
-        {
-            // En caso de movimiento diagonal, usar la dirección más fuerte
-            if (absX >= absY)
-            {
-                if (moveX > 0 && playerRightSprite != null)
-                {
-                    spriteRenderer.sprite = playerRightSprite;
-                    spriteRenderer.flipX = false;
-                }
-                else if (moveX < 0 && playerLeftSprite != null)
-                {
-                    spriteRenderer.sprite = playerLeftSprite;
-                    spriteRenderer.flipX = false;
-                }
-            }
-            else
-            {
-                if (moveY > 0 && playerBackSprite != null)
-                {
-                    spriteRenderer.sprite = playerBackSprite;
-                    spriteRenderer.flipX = false;
-                }
-                else if (moveY < 0 && playerSprite != null)
-                {
-                    spriteRenderer.sprite = playerSprite;
-                    spriteRenderer.flipX = false;
-                }
-            }
+            if (moveY > 0 && playerBackSprite != null) spriteRenderer.sprite = playerBackSprite;
+            else if (moveY < 0 && playerSprite != null) spriteRenderer.sprite = playerSprite;
         }
     }
 }

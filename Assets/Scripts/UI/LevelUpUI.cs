@@ -43,6 +43,17 @@ public class LevelUpUI : MonoBehaviour
         isUIVisible = false;
         Time.timeScale = 1f; // Asegurar que el juego no esté pausado
         
+        // Asegurar que el cursor del sistema esté siempre oculto
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+        
+        // Asegurar que el canvas de level up tenga un sorting order menor que el crosshair
+        Canvas levelUpCanvas = GetComponentInParent<Canvas>();
+        if (levelUpCanvas != null && levelUpCanvas.sortingOrder >= 32767)
+        {
+            levelUpCanvas.sortingOrder = 50; // Debajo del crosshair
+        }
+        
         // Asegurar que existe un EventSystem para los botones
         if (UnityEngine.EventSystems.EventSystem.current == null)
         {
@@ -77,6 +88,10 @@ public class LevelUpUI : MonoBehaviour
             Debug.LogError("LevelUpUI: No options provided!");
             return;
         }
+
+        // Mantener el cursor del sistema siempre oculto
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
 
         isUIVisible = true;
         currentOptions = options;
@@ -376,12 +391,22 @@ public class LevelUpUI : MonoBehaviour
             levelUpPanel.SetActive(false);
         }
         
+        // Mantener el cursor del sistema oculto
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+        
         Time.timeScale = 1f; // Reanudar el juego
         currentOptions.Clear();
     }
 
     void Update()
     {
+        // Asegurar que el cursor del sistema esté siempre oculto
+        if (Cursor.visible)
+        {
+            Cursor.visible = false;
+        }
+        
         // Permitir selección con teclado cuando la UI está visible
         if (isUIVisible && currentOptions.Count > 0)
         {
@@ -446,4 +471,3 @@ public class LevelUpUI : MonoBehaviour
         return keyString;
     }
 }
-

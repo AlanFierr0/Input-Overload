@@ -1,26 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Script que maneja la mira en pantalla que sigue el cursor del mouse.
-/// Debe estar en un GameObject hijo del Canvas.
-/// </summary>
 public class CrosshairUI : MonoBehaviour
 {
-    [Header("Crosshair Settings")]
-    [Tooltip("Imagen de la mira (se creará automáticamente si está vacío)")]
     public Image crosshairImage;
-    
-    [Tooltip("Color de la mira")]
     public Color crosshairColor = Color.white;
-    
-    [Tooltip("Tamaño de la mira en píxeles")]
-    public Vector2 crosshairSize = new Vector2(60, 60);
-    
-    [Tooltip("Distancia desde el centro de la pantalla (0 = sigue el mouse exactamente)")]
+    public Vector2 crosshairSize = new Vector2(80, 80); // Aumentado de 60 a 80
     public float offsetFromCenter = 0f;
-    
-    [Tooltip("Ocultar el cursor del mouse (reemplazarlo con la mira)")]
     public bool hideMouseCursor = true;
     
     private RectTransform rectTransform;
@@ -30,174 +16,170 @@ public class CrosshairUI : MonoBehaviour
 
     void Start()
     {
-        // Obtener o crear la imagen de la mira
-        if (crosshairImage == null)
-        {
-            crosshairImage = GetComponent<Image>();
-            if (crosshairImage == null)
-            {
-                GameObject imageObj = new GameObject("CrosshairImage");
-                imageObj.transform.SetParent(transform, false);
-                crosshairImage = imageObj.AddComponent<Image>();
-            }
-        }
-
+        if (crosshairImage == null) crosshairImage = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
-        if (rectTransform == null)
-        {
-            rectTransform = gameObject.AddComponent<RectTransform>();
-        }
-
-        // Buscar el canvas padre
-        parentCanvas = GetComponentInParent<Canvas>();
-        if (parentCanvas == null)
-        {
-            parentCanvas = FindFirstObjectByType<Canvas>();
-        }
+        mainCamera = Camera.main;
         
-        // Asegurar que el crosshair esté por encima de todo (incluyendo la UI de habilidades)
-        if (parentCanvas != null)
+        // Crear un canvas independiente para el crosshair si no existe uno apropiado
+        parentCanvas = GetComponentInParent<Canvas>();
+        
+        // Si el canvas padre tiene sorting order bajo o está compartido, crear uno nuevo
+        if (parentCanvas == null || parentCanvas.sortingOrder < 32767)
+        {
+            // Crear un nuevo GameObject para el canvas del crosshair
+            GameObject canvasObj = new GameObject("CrosshairCanvas");
+            parentCanvas = canvasObj.AddComponent<Canvas>();
+            parentCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            parentCanvas.sortingOrder = 32767; // Máximo sorting order
+            parentCanvas.overrideSorting = true;
+            
+            // Añadir CanvasScaler
+            CanvasScaler scaler = canvasObj.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080);
+            
+            // Añadir GraphicRaycaster
+            canvasObj.AddComponent<GraphicRaycaster>();
+            
+            // Mover este GameObject al nuevo canvas
+            transform.SetParent(canvasObj.transform, false);
+            
+            // Actualizar rectTransform después de mover
+            rectTransform = GetComponent<RectTransform>();
+            
+            Debug.Log("CrosshairUI: Created independent canvas with sorting order 32767");
+        }
+        else
         {
             originalSortingOrder = parentCanvas.sortingOrder;
-            // El LevelUpUI usa sortingOrder 100, así que usamos 101 o más para estar por encima
-            parentCanvas.sortingOrder = Mathf.Max(101, originalSortingOrder + 1);
+            // Asegurar que el crosshair esté SIEMPRE por encima de TODO con el sorting order más alto posible
+            parentCanvas.sortingOrder = 32767; // Valor máximo de sorting order
+            parentCanvas.overrideSorting = true; // Forzar que este canvas override cualquier otro
         }
+        
+        // Re-obtener parentCanvas después de posibles cambios
+        parentCanvas = GetComponentInParent<Canvas>();
 
-        // Obtener la cámara principal
-        mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            mainCamera = FindFirstObjectByType<Camera>();
-        }
-
-        // Configurar la imagen de la mira
         SetupCrosshairImage();
         
-        // Ocultar el cursor del mouse si está habilitado
         if (hideMouseCursor)
         {
             Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.None; // Mantener el mouse desbloqueado para que funcione
+            Cursor.lockState = CursorLockMode.None;
         }
     }
     
     void OnDestroy()
     {
-        // Restaurar el cursor cuando se destruye el objeto
-        if (hideMouseCursor)
-        {
-            Cursor.visible = true;
-        }
-        
-        // Restaurar el sorting order original del canvas si es necesario
-        if (parentCanvas != null && originalSortingOrder >= 0)
-        {
-            parentCanvas.sortingOrder = originalSortingOrder;
-        }
+        // NO restaurar el cursor visible - el crosshair debe ser permanente
+        // if (hideMouseCursor) Cursor.visible = true;
+        if (parentCanvas != null && originalSortingOrder >= 0) parentCanvas.sortingOrder = originalSortingOrder;
     }
 
     void SetupCrosshairImage()
     {
-        if (crosshairImage != null)
+        if (crosshairImage == null) return;
+        
+        crosshairImage.color = crosshairColor;
+        crosshairImage.raycastTarget = false; // No bloquear raycast para que los botones funcionen
+        
+        RectTransform imageRect = crosshairImage.GetComponent<RectTransform>();
+        if (imageRect != null)
         {
-            crosshairImage.color = crosshairColor;
-            
-            RectTransform imageRect = crosshairImage.GetComponent<RectTransform>();
-            if (imageRect != null)
-            {
-                imageRect.sizeDelta = crosshairSize;
-                imageRect.anchoredPosition = Vector2.zero;
-            }
-
-            // Si no hay sprite, crear uno simple (cruz más grande)
-            if (crosshairImage.sprite == null)
-            {
-                crosshairImage.sprite = CreateCrosshairSprite();
-            }
+            imageRect.sizeDelta = crosshairSize;
+            imageRect.anchoredPosition = Vector2.zero;
         }
+
+        if (crosshairImage.sprite == null) crosshairImage.sprite = CreateCrosshairSprite();
+        
+        // Asegurar que el crosshair esté en el layer más alto de UI
+        crosshairImage.transform.SetAsLastSibling();
     }
 
     void Update()
     {
-        UpdateCrosshairPosition();
-    }
-
-    void UpdateCrosshairPosition()
-    {
         if (rectTransform == null || parentCanvas == null) return;
 
-        Vector2 mousePosition = Input.mousePosition;
-        
-        // Convertir la posición del mouse a coordenadas del canvas
-        Vector2 localPoint;
+        // Asegurar que el cursor del sistema esté siempre oculto
+        if (Cursor.visible)
+        {
+            Cursor.visible = false;
+        }
+
+        // Asegurar que el sorting order siempre sea el máximo (por si otro canvas intenta tomar prioridad)
+        if (parentCanvas.sortingOrder != 32767)
+        {
+            parentCanvas.sortingOrder = 32767;
+        }
+
+        // Asegurar que el crosshair esté siempre activo y visible
+        if (crosshairImage != null && !crosshairImage.gameObject.activeSelf)
+        {
+            crosshairImage.gameObject.SetActive(true);
+        }
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             parentCanvas.transform as RectTransform,
-            mousePosition,
+            Input.mousePosition,
             parentCanvas.worldCamera,
-            out localPoint
+            out Vector2 localPoint
         );
 
-        // Aplicar offset si es necesario
         if (offsetFromCenter > 0f)
         {
-            Vector2 center = Vector2.zero;
-            Vector2 direction = (localPoint - center).normalized;
-            localPoint = center + direction * offsetFromCenter;
+            localPoint = localPoint.normalized * offsetFromCenter;
         }
 
         rectTransform.anchoredPosition = localPoint;
     }
 
-    /// <summary>
-    /// Obtiene la posición del mouse en el mundo (2D)
-    /// </summary>
+    void LateUpdate()
+    {
+        // Actualizar al final del frame para asegurar que esté siempre visible sobre todo lo demás
+        if (crosshairImage != null)
+        {
+            crosshairImage.transform.SetAsLastSibling();
+        }
+        
+        // Asegurar que el canvas siempre tenga el sorting order máximo
+        if (parentCanvas != null && parentCanvas.sortingOrder != 32767)
+        {
+            parentCanvas.sortingOrder = 32767;
+            parentCanvas.overrideSorting = true;
+        }
+    }
+
     public Vector2 GetMouseWorldPosition()
     {
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-            if (mainCamera == null)
-            {
-                return Vector2.zero;
-            }
-        }
+        if (mainCamera == null) mainCamera = Camera.main;
+        if (mainCamera == null) return Vector2.zero;
 
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = mainCamera.nearClipPlane + 1f; // Distancia desde la cámara
+        mousePos.z = mainCamera.nearClipPlane + 1f;
         Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
         return new Vector2(worldPos.x, worldPos.y);
     }
 
-    /// <summary>
-    /// Obtiene la dirección desde una posición hacia el mouse (normalizada)
-    /// </summary>
     public Vector2 GetDirectionFromPosition(Vector2 fromPosition)
     {
-        Vector2 mouseWorldPos = GetMouseWorldPosition();
-        Vector2 direction = (mouseWorldPos - fromPosition).normalized;
-        return direction;
+        return (GetMouseWorldPosition() - fromPosition).normalized;
     }
     
-    /// <summary>
-    /// Crea un sprite de cruz más grande y visible
-    /// </summary>
     Sprite CreateCrosshairSprite()
     {
-        int size = 64; // Textura más grande
+        int size = 64;
         Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
         Color[] pixels = new Color[size * size];
 
-        // Rellenar con transparente
         for (int i = 0; i < pixels.Length; i++)
         {
             pixels[i] = Color.clear;
         }
 
         int center = size / 2;
-        int thickness = 4; // Líneas más gruesas
-        int length = 20; // Líneas más largas
+        int thickness = 4;
+        int length = 20;
 
-        // Dibujar línea horizontal
         for (int x = center - length; x <= center + length; x++)
         {
             for (int y = center - thickness / 2; y <= center + thickness / 2; y++)
@@ -209,7 +191,6 @@ public class CrosshairUI : MonoBehaviour
             }
         }
 
-        // Dibujar línea vertical
         for (int y = center - length; y <= center + length; y++)
         {
             for (int x = center - thickness / 2; x <= center + thickness / 2; x++)

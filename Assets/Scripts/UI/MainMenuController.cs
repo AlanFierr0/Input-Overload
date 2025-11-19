@@ -30,9 +30,12 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        // Configurar el cursor
-        Cursor.visible = true;
+        // Usar el crosshair personalizado en lugar del cursor del sistema
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.None;
+        
+        // Asegurar que el tiempo esté corriendo
+        Time.timeScale = 1f;
         
         // Asignar las funciones a cada botón
         if (botonStart != null)
@@ -69,6 +72,15 @@ public class MainMenuController : MonoBehaviour
         else
         {
             Debug.LogWarning("Botón Quit no asignado en el Inspector");
+        }
+    }
+    
+    void Update()
+    {
+        // Asegurar que el cursor del sistema esté siempre oculto
+        if (Cursor.visible)
+        {
+            Cursor.visible = false;
         }
     }
 

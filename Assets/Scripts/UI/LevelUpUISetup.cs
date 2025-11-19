@@ -19,7 +19,7 @@ public class LevelUpUISetup : MonoBehaviour
         }
 
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 100; // Asegurar que esté por encima de todo
+        canvas.sortingOrder = 50; // Debajo del crosshair (32767) pero encima del juego
 
         CanvasScaler scaler = GetComponent<CanvasScaler>();
         if (scaler == null)
@@ -130,4 +130,3 @@ public class LevelUpUISetup : MonoBehaviour
         }
     }
 }
-

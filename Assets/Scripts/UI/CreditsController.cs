@@ -17,8 +17,8 @@ public class CreditsController : MonoBehaviour
 
     void Start()
     {
-        // Configurar el cursor
-        Cursor.visible = true;
+        // Usar el crosshair personalizado en lugar del cursor del sistema
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.None;
         
         // Asignar la función al botón de volver si existe
@@ -30,6 +30,12 @@ public class CreditsController : MonoBehaviour
 
     void Update()
     {
+        // Asegurar que el cursor del sistema esté siempre oculto
+        if (Cursor.visible)
+        {
+            Cursor.visible = false;
+        }
+        
         // Permitir volver al menú con ESC
         if (Input.GetKeyDown(KeyCode.Escape))
         {
