@@ -14,8 +14,15 @@ public class TomahawkAbility : Ability
 
     public override void OnStart(AbilityContext2D ctx)
     {
-        Vector2 throwDir = ctx.inputDir.normalized;
-        if (throwDir == Vector2.zero) throwDir = ctx.facingDir * 1f;
+        // Usar SOLO la dirección de apuntado (mouse) - NO usar inputDir (WASD)
+        Vector2 throwDir = ctx.aimDirection;
+        if (throwDir == Vector2.zero)
+        {
+            // Solo usar facingDir como fallback, nunca inputDir
+            throwDir = ctx.facingDir;
+            if (throwDir == Vector2.zero) throwDir = Vector2.right; // Fallback final
+        }
+        
         Vector2 spawnPos = (Vector2)ctx.body.transform.position + throwDir * 1f;
         GameObject tomahawk = GameObject.Instantiate(tomahawkPrefab, spawnPos, Quaternion.identity);
         var rb  = tomahawk.GetComponent<Rigidbody2D>();

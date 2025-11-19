@@ -227,7 +227,7 @@ public class LevelUpUI : MonoBehaviour
         nameText.alignment = TextAlignmentOptions.Center;
         nameText.color = new Color(1f, 1f, 1f, 1f); // Blanco brillante
         nameText.fontStyle = FontStyles.Bold;
-        nameText.enableWordWrapping = true;
+        nameText.textWrappingMode = TextWrappingModes.Normal;
         
         // Agregar outline para mejor legibilidad
         var outline = nameObj.AddComponent<UnityEngine.UI.Outline>();

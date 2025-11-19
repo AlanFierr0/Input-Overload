@@ -7,6 +7,7 @@ public class PlayerAbilityController : MonoBehaviour
     [HideInInspector] public PlayerMovement move;
     [HideInInspector] public Health health;
     
+    private Camera mainCamera;
     float activeTimer;
     float nextReadyTime;
 
@@ -28,21 +29,73 @@ public class PlayerAbilityController : MonoBehaviour
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         if (move == null) move = GetComponent<PlayerMovement>();
         if (health == null) health = GetComponent<Health>();
+        
+        // Obtener la cámara principal
+        mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            mainCamera = FindFirstObjectByType<Camera>();
+        }
+    }
+    
+    /// <summary>
+    /// Calcula la dirección de apuntado desde el jugador hacia el mouse
+    /// </summary>
+    Vector2 CalculateAimDirection()
+    {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null)
+            {
+                return move.facingDir; // Fallback a la dirección de movimiento
+            }
+        }
+
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = mainCamera.nearClipPlane + 1f;
+        Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
+        Vector2 mouseWorldPos = new Vector2(worldPos.x, worldPos.y);
+        
+        Vector2 playerPos = rb.position;
+        Vector2 direction = (mouseWorldPos - playerPos).normalized;
+        
+        // Si la dirección es cero (mouse muy cerca del jugador), usar la dirección de movimiento
+        if (direction == Vector2.zero)
+        {
+            direction = move.facingDir;
+            if (direction == Vector2.zero)
+            {
+                direction = Vector2.right; // Fallback a derecha
+            }
+        }
+        
+        return direction;
     }
 
     void Update()
     {
+        Vector2 aimDir = CalculateAimDirection();
+        
         var ctx = new AbilityContext2D
         {
             caster   = gameObject,
             body     = rb,
             inputDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")),
             playerHealth   = health,
-            facingDir = move.facingDir
+            facingDir = move.facingDir,
+            aimDirection = aimDir
         };
 
         foreach (var slot in slots)
         {
+            // Validar que la tecla no sea WASD
+            if (slot.key == KeyCode.W || slot.key == KeyCode.A || slot.key == KeyCode.S || slot.key == KeyCode.D)
+            {
+                Debug.LogWarning("PlayerAbilityController: La habilidad " + (slot.ability != null ? slot.ability.name : "null") + " está asignada a una tecla WASD. Esta habilidad no se activará.");
+                continue;
+            }
+
             switch (slot.state)
         {
             case AbilityState.Ready:

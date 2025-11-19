@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: TomahawkAbility
   m_EditorClassIdentifier: 
   abilityName: 
-  abilityIcon: {fileID: -5825250732961213246, guid: 37a7da798dd459040ae548e10fe88e41, type: 3}
+  abilityIcon: {fileID: 5528369004967872262, guid: 133928357e1325b41b28fda78cbcd90d, type: 3}
   abilityDescription: 
   abilityCooldown: 0
   abilityDuration: 0
   abilityState: 0
-  shooter: {fileID: 0}
   tomahawkPrefab: {fileID: 5129971398272475180, guid: 7e95a8e83725cf942876dd366ef4f39c, type: 3}
   throwForce: 8
   maxTomahawks: 1

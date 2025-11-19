@@ -13,8 +13,15 @@ public class BazookaAbility : Ability
 
     public override void OnStart(AbilityContext2D ctx)
     {
-        Vector2 shootDir = ctx.inputDir.normalized;
-        if (shootDir == Vector2.zero) shootDir = ctx.facingDir * 1f;
+        // Usar SOLO la dirección de apuntado (mouse) - NO usar inputDir (WASD)
+        Vector2 shootDir = ctx.aimDirection;
+        if (shootDir == Vector2.zero)
+        {
+            // Solo usar facingDir como fallback, nunca inputDir
+            shootDir = ctx.facingDir;
+            if (shootDir == Vector2.zero) shootDir = Vector2.right; // Fallback final
+        }
+        
         Vector2 spawnPos = (Vector2)ctx.body.transform.position + shootDir * 1f;
         GameObject rocket = GameObject.Instantiate(rocketPrefab, spawnPos, Quaternion.identity);
         var rb = rocket.GetComponent<Rigidbody2D>();

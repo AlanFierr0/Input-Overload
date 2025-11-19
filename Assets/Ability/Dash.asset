@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   abilityName: Dash
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: 8524483077822888511, guid: aef9ec57db569e1469499d6b52a440d3, type: 3}
   abilityDescription: mega dash!!!!
   abilityCooldown: 4
   abilityDuration: 0.15

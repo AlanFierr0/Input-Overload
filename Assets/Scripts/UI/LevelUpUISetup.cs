@@ -44,7 +44,7 @@ public class LevelUpUISetup : MonoBehaviour
         }
 
         // Buscar o crear LevelUpUI component
-        LevelUpUI levelUpUI = FindObjectOfType<LevelUpUI>();
+        LevelUpUI levelUpUI = FindFirstObjectByType<LevelUpUI>();
         if (levelUpUI == null)
         {
             GameObject uiObj = new GameObject("LevelUpUI");
@@ -109,7 +109,7 @@ public class LevelUpUISetup : MonoBehaviour
         levelUpUI.abilityOptionsContainer = containerObj.transform;
 
         // Buscar y asignar automáticamente al AbilityManager si existe
-        AbilityManager abilityManager = FindObjectOfType<AbilityManager>();
+        AbilityManager abilityManager = FindFirstObjectByType<AbilityManager>();
         if (abilityManager != null && abilityManager.levelUpUI == null)
         {
             abilityManager.levelUpUI = levelUpUI;
@@ -123,7 +123,7 @@ public class LevelUpUISetup : MonoBehaviour
     void Awake()
     {
         // Auto-setup si no hay UI configurada
-        LevelUpUI levelUpUI = FindObjectOfType<LevelUpUI>();
+        LevelUpUI levelUpUI = FindFirstObjectByType<LevelUpUI>();
         if (levelUpUI != null && levelUpUI.levelUpPanel == null)
         {
             SetupLevelUpUI();

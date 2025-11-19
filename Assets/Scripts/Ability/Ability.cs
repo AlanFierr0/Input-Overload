@@ -27,4 +27,5 @@ public class AbilityContext2D
     public Vector2 inputDir;
     public Health playerHealth;
     public Vector2 facingDir;
+    public Vector2 aimDirection; // Dirección hacia donde apunta el mouse (normalizada)
 }

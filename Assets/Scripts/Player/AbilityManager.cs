@@ -35,7 +35,7 @@ public class AbilityManager : MonoBehaviour
             abilityController = GetComponent<PlayerAbilityController>();
             if (abilityController == null)
             {
-                abilityController = FindObjectOfType<PlayerAbilityController>();
+                abilityController = FindFirstObjectByType<PlayerAbilityController>();
             }
         }
 
@@ -47,7 +47,7 @@ public class AbilityManager : MonoBehaviour
         // Buscar LevelUpUI automáticamente si no está asignado
         if (levelUpUI == null)
         {
-            levelUpUI = FindObjectOfType<LevelUpUI>();
+            levelUpUI = FindFirstObjectByType<LevelUpUI>();
         }
 
         if (levelUpUI != null)
@@ -143,6 +143,22 @@ public class AbilityManager : MonoBehaviour
             return;
         }
 
+        // Validar que no se usen las teclas WASD (movimiento)
+        if (key == KeyCode.W || key == KeyCode.A || key == KeyCode.S || key == KeyCode.D)
+        {
+            Debug.LogWarning("AbilityManager: Las teclas WASD no pueden usarse para habilidades. Usando una tecla alternativa.");
+            // Buscar una tecla alternativa disponible
+            if (predefinedKeys.Count > 0)
+            {
+                key = predefinedKeys[0];
+            }
+            else
+            {
+                Debug.LogError("AbilityManager: No hay teclas disponibles para asignar la habilidad!");
+                return;
+            }
+        }
+
         // Verificar si la habilidad ya está en el controlador (evitar duplicados)
         bool abilityAlreadyExists = false;
         bool keyAlreadyInUse = false;
@@ -192,7 +208,7 @@ public class AbilityManager : MonoBehaviour
             abilityController = GetComponent<PlayerAbilityController>();
             if (abilityController == null)
             {
-                abilityController = FindObjectOfType<PlayerAbilityController>();
+                abilityController = FindFirstObjectByType<PlayerAbilityController>();
             }
         }
 

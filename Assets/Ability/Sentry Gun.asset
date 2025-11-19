@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sentry Gun
   m_EditorClassIdentifier: 
   abilityName: 
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: -4089585681788115135, guid: 985224b9d5984484990d16a0d66f2713, type: 3}
   abilityDescription: 
   abilityCooldown: 0
   abilityDuration: 0

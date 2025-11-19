@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slot Machine Ability
   m_EditorClassIdentifier: 
   abilityName: 
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: -7239473265642083624, guid: 3c60484abc6862046a72f662bcc72a48, type: 3}
   abilityDescription: 
   abilityCooldown: 3
   abilityDuration: 0

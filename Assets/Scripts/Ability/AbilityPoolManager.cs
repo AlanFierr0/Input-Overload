@@ -14,7 +14,7 @@ public class AbilityPoolManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<AbilityPoolManager>();
+                _instance = FindFirstObjectByType<AbilityPoolManager>();
                 if (_instance == null)
                 {
                     GameObject go = new GameObject("AbilityPoolManager");
