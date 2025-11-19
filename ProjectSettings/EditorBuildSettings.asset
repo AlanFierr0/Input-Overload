@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Harbie Games.unity
+    guid: a9355561dc02b1544ad5863f3c650de8
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: ea2aa99847f138b44833e5b5bd916a42
   - enabled: 1
