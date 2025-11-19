@@ -15,10 +15,12 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused = false;
     private LevelUpUI levelUpUI;
+    private GameOverManager gameOverManager;
 
     void Start()
     {
         levelUpUI = FindFirstObjectByType<LevelUpUI>();
+        gameOverManager = FindFirstObjectByType<GameOverManager>();
         if (pausePanel != null) pausePanel.SetActive(false);
         SetupButtons();
         isPaused = false;
@@ -57,7 +59,13 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        // Asegurar que el cursor del sistema esté siempre oculto
+        // Asegurar que el cursor del sistema esté siempre oculto (excepto si el Game Over está activo)
+        if (gameOverManager != null && gameOverManager.IsGameOver())
+        {
+            // No hacer nada con el cursor durante Game Over
+            return;
+        }
+        
         if (Cursor.visible)
         {
             Cursor.visible = false;
@@ -65,7 +73,11 @@ public class PauseMenu : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            // No permitir pausar si el Level Up está activo
             if (levelUpUI != null && levelUpUI.levelUpPanel != null && levelUpUI.levelUpPanel.activeSelf) return;
+            
+            // No permitir pausar si el Game Over está activo
+            if (gameOverManager != null && gameOverManager.IsGameOver()) return;
 
             if (isPaused) ResumeGame();
             else PauseGame();

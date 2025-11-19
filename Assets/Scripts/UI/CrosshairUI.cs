@@ -12,7 +12,25 @@ public class CrosshairUI : MonoBehaviour
     private RectTransform rectTransform;
     private Canvas parentCanvas;
     private Camera mainCamera;
-    private int originalSortingOrder = -1;
+    
+    private static CrosshairUI instance;
+
+    void Awake()
+    {
+        // Implementar Singleton para que persista entre escenas
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        instance = this;
+        
+        // Hacer que el crosshair persista entre escenas
+        // Buscar el canvas raíz para hacerlo persistente
+        Transform root = transform.root;
+        DontDestroyOnLoad(root.gameObject);
+    }
 
     void Start()
     {
@@ -20,43 +38,34 @@ public class CrosshairUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         mainCamera = Camera.main;
         
-        // Crear un canvas independiente para el crosshair si no existe uno apropiado
+        // Obtener o crear canvas para el crosshair
         parentCanvas = GetComponentInParent<Canvas>();
         
-        // Si el canvas padre tiene sorting order bajo o está compartido, crear uno nuevo
-        if (parentCanvas == null || parentCanvas.sortingOrder < 32767)
+        if (parentCanvas == null)
         {
-            // Crear un nuevo GameObject para el canvas del crosshair
+            // Si no hay canvas padre, crear uno
             GameObject canvasObj = new GameObject("CrosshairCanvas");
             parentCanvas = canvasObj.AddComponent<Canvas>();
             parentCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            parentCanvas.sortingOrder = 32767; // Máximo sorting order
+            parentCanvas.sortingOrder = 32767;
             parentCanvas.overrideSorting = true;
             
-            // Añadir CanvasScaler
             CanvasScaler scaler = canvasObj.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             
-            // Añadir GraphicRaycaster
             canvasObj.AddComponent<GraphicRaycaster>();
             
-            // Mover este GameObject al nuevo canvas
             transform.SetParent(canvasObj.transform, false);
-            
-            // Actualizar rectTransform después de mover
             rectTransform = GetComponent<RectTransform>();
+            parentCanvas = GetComponentInParent<Canvas>();
         }
         else
         {
-            originalSortingOrder = parentCanvas.sortingOrder;
-            // Asegurar que el crosshair esté SIEMPRE por encima de TODO con el sorting order más alto posible
-            parentCanvas.sortingOrder = 32767; // Valor máximo de sorting order
-            parentCanvas.overrideSorting = true; // Forzar que este canvas override cualquier otro
+            // Asegurar que tenga prioridad máxima
+            parentCanvas.sortingOrder = 32767;
+            parentCanvas.overrideSorting = true;
         }
-        
-        // Re-obtener parentCanvas después de posibles cambios
-        parentCanvas = GetComponentInParent<Canvas>();
 
         SetupCrosshairImage();
         
@@ -70,8 +79,7 @@ public class CrosshairUI : MonoBehaviour
     void OnDestroy()
     {
         // NO restaurar el cursor visible - el crosshair debe ser permanente
-        // if (hideMouseCursor) Cursor.visible = true;
-        if (parentCanvas != null && originalSortingOrder >= 0) parentCanvas.sortingOrder = originalSortingOrder;
+        // Como el canvas es independiente y persistente, no necesitamos restaurar nada
     }
 
     void SetupCrosshairImage()
@@ -135,10 +143,17 @@ public class CrosshairUI : MonoBehaviour
     {
         if (rectTransform == null || parentCanvas == null) return;
 
-        // Asegurar que el cursor del sistema esté siempre oculto
-        if (Cursor.visible)
+        // Verificar si el Game Over está activo
+        GameOverManager gameOverManager = FindFirstObjectByType<GameOverManager>();
+        bool isGameOver = gameOverManager != null && gameOverManager.IsGameOver();
+        
+        // Asegurar que el cursor del sistema esté siempre oculto (excepto durante Game Over)
+        if (hideMouseCursor && !isGameOver)
         {
-            Cursor.visible = false;
+            if (Cursor.visible)
+            {
+                Cursor.visible = false;
+            }
         }
 
         // Asegurar que el sorting order siempre sea el máximo (por si otro canvas intenta tomar prioridad)
