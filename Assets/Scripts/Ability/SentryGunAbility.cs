@@ -8,9 +8,24 @@ public class SentryGun : Ability
     public float bulletSpeed;
     public GameObject sentryGunPrefab;
     public GameObject bulletPrefab;
+    public float deployDistance = 2f; // Distancia adelante del jugador
+    
+    private GameObject currentSentry;
+    
     public override void OnStart(AbilityContext2D ctx)
     {
-        GameObject sentryGun = Instantiate(sentryGunPrefab, ctx.caster.transform.position, Quaternion.identity);
+        // Destruir la torreta anterior si existe
+        if (currentSentry != null)
+        {
+            Destroy(currentSentry);
+        }
+        
+        // Calcular posición adelante del jugador
+        Vector2 deployPosition = (Vector2)ctx.caster.transform.position + ctx.facingDir * deployDistance;
+        
+        GameObject sentryGun = Instantiate(sentryGunPrefab, deployPosition, Quaternion.identity);
+        currentSentry = sentryGun;
+        
         SentryGunBehaviour sentryGunBehaviour = sentryGun.GetComponent<SentryGunBehaviour>();
         sentryGunBehaviour.range = range;
         sentryGunBehaviour.damage = damage;
