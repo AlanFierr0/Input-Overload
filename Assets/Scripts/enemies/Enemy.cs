@@ -29,7 +29,6 @@ public abstract class Enemy : MonoBehaviour
     }
     void HandleDeath()
     {
-        player.GetComponent<expManager>().GainExp(expReward);
         Destroy(gameObject);
     }
 }

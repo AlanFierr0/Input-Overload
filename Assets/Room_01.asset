@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5373ed6c20ae47e4e94993b671ed583d, type: 3}
   m_Name: Room_01
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 3330914045701794885, guid: 3b9a211e597e31749bc7fcc09c34efec, type: 3}
+  roomPrefab: {fileID: 4566497626242554571, guid: e0d06981626a90f42a6ac61268094c4b, type: 3}
   enemyPrefabs:
   - {fileID: 5318355430286550372, guid: 475b705ffcd5c644f85c3d52ba48c7c0, type: 3}
   - {fileID: 6765802154698580224, guid: cadb2923b718f7645927f07b3db182fc, type: 3}

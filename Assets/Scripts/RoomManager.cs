@@ -31,9 +31,12 @@ public class RoomManager : MonoBehaviour
     [Tooltip("Duración del fade out/in en segundos.")]
     public float fadeDuration = 0.5f;
 
-    [Header("Floor Complete")]
-    [Tooltip("Panel UI que aparece al terminar todas las habitaciones.")]
-    public GameObject floorCompletePanel;
+    [Header("Room Rewards")]
+    [Tooltip("Experiencia otorgada al entrar al primer room (inicio del juego).")]
+    public int expOnGameStart = 50;
+
+    [Tooltip("Experiencia otorgada al completar cada habitación.")]
+    public int expPerRoomComplete = 100;
 
     // Singleton
     private static RoomManager _instance;
@@ -45,7 +48,9 @@ public class RoomManager : MonoBehaviour
     private Transform playerTransform;
     private PlayerMovement playerMovement;
     private Health playerHealth;
+    private expManager playerExpManager;
     private List<Health> activeEnemyHealths = new List<Health>();
+    private bool hasGivenStartExp = false;
 
     void Awake()
     {
@@ -66,6 +71,7 @@ public class RoomManager : MonoBehaviour
             playerTransform = player.transform;
             playerMovement  = player.GetComponent<PlayerMovement>();
             playerHealth    = player.GetComponent<Health>();
+            playerExpManager = player.GetComponent<expManager>();
         }
         else
         {
@@ -77,12 +83,13 @@ public class RoomManager : MonoBehaviour
         {
             fadePanel.alpha = 0f;
             fadePanel.gameObject.SetActive(true);
-        }
-
-        // Ocultar el panel de floor complete
-        if (floorCompletePanel != null)
-        {
-            floorCompletePanel.SetActive(false);
+            
+            // Asegurar que el fadePanel esté por debajo del crosshair
+            Canvas fadeCanvas = fadePanel.GetComponentInParent<Canvas>();
+            if (fadeCanvas != null)
+            {
+                fadeCanvas.sortingOrder = 32766; // Justo debajo del crosshair (32767)
+            }
         }
     }
 
@@ -92,10 +99,30 @@ public class RoomManager : MonoBehaviour
         if (roomList.Length > 0)
         {
             LoadRoom(currentRoomIndex);
+            
+            // Dar experiencia al iniciar el juego (primer room) con delay
+            if (!hasGivenStartExp)
+            {
+                StartCoroutine(GiveStartExpWithDelay());
+            }
         }
         else
         {
             Debug.LogError("RoomManager: roomList está vacío. No hay habitaciones para cargar.");
+        }
+    }
+
+    /// <summary>
+    /// Espera 1 segundo y luego otorga la experiencia inicial.
+    /// </summary>
+    IEnumerator GiveStartExpWithDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        if (playerExpManager != null)
+        {
+            playerExpManager.GainExp(expOnGameStart);
+            hasGivenStartExp = true;
         }
     }
 
@@ -117,8 +144,9 @@ public class RoomManager : MonoBehaviour
             return;
         }
 
-        // Instanciar la habitación con offset configurado
-        currentRoomInstance = Instantiate(data.roomPrefab, roomSpawnOffset, Quaternion.identity);
+        // Instanciar la habitación en la posición configurada en el RoomData
+        Vector3 spawnPosition = data.roomPosition + roomSpawnOffset;
+        currentRoomInstance = Instantiate(data.roomPrefab, spawnPosition, Quaternion.identity);
         currentRoomInstance.name = $"Room_{index}_{data.roomPrefab.name}";
 
         // Encontrar spawn points
@@ -258,6 +286,12 @@ public class RoomManager : MonoBehaviour
         // Avanzar al siguiente índice
         currentRoomIndex++;
 
+        // Otorgar experiencia por completar la habitación
+        if (playerExpManager != null)
+        {
+            playerExpManager.GainExp(expPerRoomComplete);
+        }
+
         // ¿Quedan habitaciones?
         if (currentRoomIndex < roomList.Length)
         {
@@ -273,8 +307,16 @@ public class RoomManager : MonoBehaviour
         }
         else
         {
-            // Completado el piso
-            ShowFloorComplete();
+            // Completado todas las habitaciones del piso - reiniciar desde la primera
+            currentRoomIndex = 0;
+            LoadRoom(currentRoomIndex);
+
+            // Fade in
+            yield return FadeIn();
+
+            // Desbloquear jugador
+            if (playerMovement != null) playerMovement.lockMovement = false;
+            if (playerHealth   != null) playerHealth.ChangeVulnerability(true);
         }
     }
 
@@ -312,20 +354,4 @@ public class RoomManager : MonoBehaviour
         fadePanel.alpha = 0f;
     }
 
-    /// <summary>
-    /// Muestra el panel "Floor Complete" y pausa el juego.
-    /// </summary>
-    void ShowFloorComplete()
-    {
-        if (floorCompletePanel != null)
-        {
-            floorCompletePanel.SetActive(true);
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Debug.LogWarning("RoomManager: floorCompletePanel no está asignado. " +
-                             "El jugador completó el piso pero no hay UI de victoria.");
-        }
-    }
 }

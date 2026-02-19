@@ -36,6 +36,20 @@ public class MainMenuController : MonoBehaviour
         
         // Asegurar que el tiempo esté corriendo
         Time.timeScale = 1f;
+
+        // CRÍTICO: Forzar el crosshair al frente al cargar el menú principal
+        CrosshairUI crosshair = CrosshairUI.GetInstance();
+        if (crosshair != null)
+        {
+            crosshair.ForceToFront();
+        }
+        
+        // Asegurar que el canvas del menú esté por debajo del crosshair
+        Canvas menuCanvas = GetComponent<Canvas>();
+        if (menuCanvas != null && menuCanvas.sortingOrder >= 32767)
+        {
+            menuCanvas.sortingOrder = 100;
+        }
         
         // Asignar las funciones a cada botón
         if (botonStart != null)
@@ -81,6 +95,13 @@ public class MainMenuController : MonoBehaviour
         if (Cursor.visible)
         {
             Cursor.visible = false;
+        }
+
+        // Forzar el crosshair al frente cada frame en el menú
+        CrosshairUI crosshair = CrosshairUI.GetInstance();
+        if (crosshair != null)
+        {
+            crosshair.ForceToFront();
         }
     }
 

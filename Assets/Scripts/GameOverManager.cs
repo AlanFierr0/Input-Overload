@@ -112,6 +112,13 @@ public class GameOverManager : MonoBehaviour
         
         // Activar el panel de Game Over
         gameOverPanel.SetActive(true);
+
+        // CRÍTICO: Forzar el crosshair al frente después de mostrar el panel
+        CrosshairUI crosshair = CrosshairUI.GetInstance();
+        if (crosshair != null)
+        {
+            crosshair.ForceToFront();
+        }
     }
 
     /// <summary>

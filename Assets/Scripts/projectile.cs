@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        if (Mathf.Abs(rb.position.x) > 20 || Mathf.Abs(rb.position.y) > 20)
+        if (Mathf.Abs(rb.position.x) > 10000 || Mathf.Abs(rb.position.y) > 10000)
         {
             Destroy(gameObject);
         }

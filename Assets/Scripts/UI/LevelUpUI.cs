@@ -49,9 +49,13 @@ public class LevelUpUI : MonoBehaviour
         
         // Asegurar que el canvas de level up tenga un sorting order menor que el crosshair
         Canvas levelUpCanvas = GetComponentInParent<Canvas>();
-        if (levelUpCanvas != null && levelUpCanvas.sortingOrder >= 32767)
+        if (levelUpCanvas != null)
         {
-            levelUpCanvas.sortingOrder = 50; // Debajo del crosshair
+            if (levelUpCanvas.sortingOrder >= 32767)
+            {
+                levelUpCanvas.sortingOrder = 100; // Debajo del crosshair
+            }
+            levelUpCanvas.overrideSorting = true;
         }
         
         // Asegurar que existe un EventSystem para los botones
@@ -98,6 +102,21 @@ public class LevelUpUI : MonoBehaviour
         levelUpPanel.SetActive(true);
         Time.timeScale = 0f; // Pausar el juego
 
+        // CRÍTICO: Forzar el sorting order del canvas del LevelUpUI por debajo del crosshair
+        Canvas levelUpCanvas = GetComponentInParent<Canvas>();
+        if (levelUpCanvas != null)
+        {
+            levelUpCanvas.sortingOrder = 100; // SIEMPRE 100, muy por debajo del crosshair
+            levelUpCanvas.overrideSorting = true;
+        }
+
+        // CRÍTICO: Forzar el crosshair al frente después de mostrar este panel
+        CrosshairUI crosshair = CrosshairUI.GetInstance();
+        if (crosshair != null)
+        {
+            crosshair.ForceToFront();
+        }
+
         // Asegurar que existe un EventSystem para los botones
         if (UnityEngine.EventSystems.EventSystem.current == null)
         {
@@ -127,6 +146,38 @@ public class LevelUpUI : MonoBehaviour
         
         // Seleccionar el primer botón automáticamente para navegación con teclado
         StartCoroutine(SelectFirstButton());
+
+        // Forzar el crosshair al frente DESPUÉS de crear todos los elementos UI
+        StartCoroutine(ForceCrosshairToFrontDelayed());
+    }
+
+    IEnumerator ForceCrosshairToFrontDelayed()
+    {
+        // Esperar un frame para que todos los elementos UI se creen
+        yield return null;
+        
+        // Forzar el Canvas del LevelUpUI a estar por debajo
+        Canvas levelUpCanvas = GetComponentInParent<Canvas>();
+        if (levelUpCanvas != null)
+        {
+            levelUpCanvas.sortingOrder = 100;
+            levelUpCanvas.overrideSorting = true;
+        }
+
+        // Forzar el crosshair al frente
+        CrosshairUI crosshair = CrosshairUI.GetInstance();
+        if (crosshair != null)
+        {
+            crosshair.ForceToFront();
+        }
+
+        // Esperar otro frame y forzar de nuevo
+        yield return null;
+        
+        if (crosshair != null)
+        {
+            crosshair.ForceToFront();
+        }
     }
 
     void CreateAbilityOptionUI(AbilityOption option, int index)
@@ -405,6 +456,25 @@ public class LevelUpUI : MonoBehaviour
         if (Cursor.visible)
         {
             Cursor.visible = false;
+        }
+
+        // CRÍTICO: Forzar el crosshair al frente mientras el UI está visible
+        if (isUIVisible)
+        {
+            // Forzar el canvas del LevelUpUI por debajo
+            Canvas levelUpCanvas = GetComponentInParent<Canvas>();
+            if (levelUpCanvas != null && levelUpCanvas.sortingOrder >= 32767)
+            {
+                levelUpCanvas.sortingOrder = 100;
+                levelUpCanvas.overrideSorting = true;
+            }
+
+            // Forzar el crosshair al frente
+            CrosshairUI crosshair = CrosshairUI.GetInstance();
+            if (crosshair != null)
+            {
+                crosshair.ForceToFront();
+            }
         }
         
         // Permitir selección con teclado cuando la UI está visible

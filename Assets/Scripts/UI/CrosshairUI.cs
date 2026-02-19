@@ -192,10 +192,47 @@ public class CrosshairUI : MonoBehaviour
         }
         
         // Asegurar que el canvas siempre tenga el sorting order máximo
-        if (parentCanvas != null && parentCanvas.sortingOrder != 32767)
+        if (parentCanvas != null)
         {
+            // FORZAR AGRESIVAMENTE el sorting order máximo
             parentCanvas.sortingOrder = 32767;
             parentCanvas.overrideSorting = true;
+            
+            // CRÍTICO: Forzar que este canvas esté después de TODOS los demás canvas en la escena
+            // Buscar todos los Canvas y asegurar que el crosshair esté al final
+            Canvas[] allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+            
+            // Primero, bajar cualquier canvas que esté en 32767 o más (excepto este)
+            foreach (Canvas canvas in allCanvases)
+            {
+                if (canvas != parentCanvas && canvas.sortingOrder >= 32767)
+                {
+                    canvas.sortingOrder = 100; // Forzar por debajo del crosshair
+                }
+            }
+            
+            // Ahora asegurar que este canvas esté al final de la jerarquía
+            Transform canvasParent = parentCanvas.transform.parent;
+            int maxSiblingIndex = -1;
+            
+            foreach (Canvas canvas in allCanvases)
+            {
+                // Solo comparar con canvas que tengan el mismo padre (o sean raíz como nosotros)
+                if (canvas != parentCanvas && canvas.transform.parent == canvasParent)
+                {
+                    int siblingIndex = canvas.transform.GetSiblingIndex();
+                    if (siblingIndex > maxSiblingIndex)
+                    {
+                        maxSiblingIndex = siblingIndex;
+                    }
+                }
+            }
+            
+            // Colocar el crosshair después del último
+            if (maxSiblingIndex >= 0 && parentCanvas.transform.GetSiblingIndex() <= maxSiblingIndex)
+            {
+                parentCanvas.transform.SetAsLastSibling();
+            }
         }
     }
 
@@ -213,6 +250,35 @@ public class CrosshairUI : MonoBehaviour
     public Vector2 GetDirectionFromPosition(Vector2 fromPosition)
     {
         return (GetMouseWorldPosition() - fromPosition).normalized;
+    }
+
+    /// <summary>
+    /// Fuerza el crosshair al frente de todos los canvas.
+    /// Llamar este método cada vez que se muestre una nueva UI para asegurar que el crosshair esté visible.
+    /// </summary>
+    public void ForceToFront()
+    {
+        if (parentCanvas == null) parentCanvas = GetComponentInParent<Canvas>();
+        
+        if (parentCanvas != null)
+        {
+            parentCanvas.sortingOrder = 32767;
+            parentCanvas.overrideSorting = true;
+            parentCanvas.transform.SetAsLastSibling();
+        }
+
+        if (crosshairImage != null)
+        {
+            crosshairImage.transform.SetAsLastSibling();
+        }
+    }
+
+    /// <summary>
+    /// Obtiene la instancia singleton del crosshair.
+    /// </summary>
+    public static CrosshairUI GetInstance()
+    {
+        return instance;
     }
 }
 

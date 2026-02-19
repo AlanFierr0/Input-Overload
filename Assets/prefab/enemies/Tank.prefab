@@ -162,7 +162,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.16, y: 0.11}
+  m_Size: {x: 3.6, y: 4.2}
   m_EdgeRadius: 0
 --- !u!114 &5428098727584639136
 MonoBehaviour:
@@ -199,3 +199,4 @@ MonoBehaviour:
   maxHealth: 40
   currentHealth: 0
   vulnerable: 1
+  destroyOnDeath: 1

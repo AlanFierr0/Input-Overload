@@ -118,6 +118,13 @@ public class PauseMenu : MonoBehaviour
         if (pausePanel != null) pausePanel.SetActive(true);
         SetupButtons();
 
+        // CRÍTICO: Forzar el crosshair al frente después de mostrar el menú de pausa
+        CrosshairUI crosshair = CrosshairUI.GetInstance();
+        if (crosshair != null)
+        {
+            crosshair.ForceToFront();
+        }
+
         UnityEngine.EventSystems.EventSystem eventSystem = UnityEngine.EventSystems.EventSystem.current;
         if (eventSystem != null)
         {
