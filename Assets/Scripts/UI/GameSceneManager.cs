@@ -11,7 +11,7 @@ public class GameSceneManager : MonoBehaviour
     public string mainMenuSceneName = "MainMenu";
     
     [Tooltip("Nombre de la escena del juego")]
-    public string gameSceneName = "SampleScene";
+    public string gameSceneName = "GameScene";
 
     private static GameSceneManager _instance;
     public static GameSceneManager Instance
