@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Room_01
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 4566497626242554571, guid: e0d06981626a90f42a6ac61268094c4b, type: 3}
+  roomPosition: {x: 0, y: 0, z: 0}
   enemyPrefabs:
   - {fileID: 5318355430286550372, guid: 475b705ffcd5c644f85c3d52ba48c7c0, type: 3}
   - {fileID: 6765802154698580224, guid: cadb2923b718f7645927f07b3db182fc, type: 3}
+  roomBGM: {fileID: 8300000, guid: 6fd9757d6ab3c0c48959d348ec2c2a7d, type: 3}

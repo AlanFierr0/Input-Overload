@@ -18,3 +18,4 @@ MonoBehaviour:
   - {fileID: 7011812751749782023, guid: 0c211780b1fa076488d7a09c6b74cc96, type: 3}
   - {fileID: 6765802154698580224, guid: cadb2923b718f7645927f07b3db182fc, type: 3}
   - {fileID: 6765802154698580224, guid: cadb2923b718f7645927f07b3db182fc, type: 3}
+  roomBGM: {fileID: 8300000, guid: 04f9bc08d96397e4ea3a8904cd8a7181, type: 3}
