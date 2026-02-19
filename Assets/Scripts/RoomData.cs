@@ -21,4 +21,7 @@ public class RoomData : ScriptableObject
 
     [Tooltip("Prefabs de enemigos a spawnear. Índice i → EnemySpawnPoint i (cíclico si hay menos spawn points que enemigos).")]
     public GameObject[] enemyPrefabs;
+
+    [Tooltip("Música de fondo para esta habitación.")]
+    public AudioClip roomBGM;
 }

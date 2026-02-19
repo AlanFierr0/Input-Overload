@@ -15,11 +15,21 @@ public class CreditsController : MonoBehaviour
     [Tooltip("Arrastra aquí el botón de volver al menú si tienes uno")]
     public Button botonVolver;
 
+    [Header("Audio")]
+    [Tooltip("Música de fondo para los créditos")]
+    public AudioClip creditsBGM;
+
     void Start()
     {
         // Usar el crosshair personalizado en lugar del cursor del sistema
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.None;
+        
+        // Reproducir música de créditos
+        if (creditsBGM != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayBGM(creditsBGM, true);
+        }
         
         // Asignar la función al botón de volver si existe
         if (botonVolver != null)

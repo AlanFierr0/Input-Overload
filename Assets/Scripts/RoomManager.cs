@@ -149,6 +149,12 @@ public class RoomManager : MonoBehaviour
         currentRoomInstance = Instantiate(data.roomPrefab, spawnPosition, Quaternion.identity);
         currentRoomInstance.name = $"Room_{index}_{data.roomPrefab.name}";
 
+        // Reproducir la música del room si existe
+        if (data.roomBGM != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayBGM(data.roomBGM, true);
+        }
+
         // Encontrar spawn points
         EnemySpawnPoint[] spawnPoints = currentRoomInstance.GetComponentsInChildren<EnemySpawnPoint>(true);
 
@@ -307,16 +313,10 @@ public class RoomManager : MonoBehaviour
         }
         else
         {
-            // Completado todas las habitaciones del piso - reiniciar desde la primera
-            currentRoomIndex = 0;
-            LoadRoom(currentRoomIndex);
-
-            // Fade in
-            yield return FadeIn();
-
-            // Desbloquear jugador
-            if (playerMovement != null) playerMovement.lockMovement = false;
-            if (playerHealth   != null) playerHealth.ChangeVulnerability(true);
+            // Completado todas las habitaciones - ir a créditos
+            Debug.Log("¡Se completaron todos los rooms! Cargando escena de créditos...");
+            Time.timeScale = 1f; // Asegurar que el tiempo esté normal
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Credits");
         }
     }
 

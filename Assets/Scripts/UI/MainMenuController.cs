@@ -28,6 +28,10 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("Nombre de la escena de créditos (debe estar en Build Settings)")]
     public string nombreEscenaCreditos = "Credits";
 
+    [Header("Audio")]
+    [Tooltip("Música de fondo para el menú principal")]
+    public AudioClip mainMenuBGM;
+
     void Start()
     {
         // Usar el crosshair personalizado en lugar del cursor del sistema
@@ -37,8 +41,20 @@ public class MainMenuController : MonoBehaviour
         // Asegurar que el tiempo esté corriendo
         Time.timeScale = 1f;
 
-        // CRÍTICO: Forzar el crosshair al frente al cargar el menú principal
-        CrosshairUI crosshair = CrosshairUI.GetInstance();
+        // Reproducir música del menú principal
+        if (mainMenuBGM != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayBGM(mainMenuBGM, true);
+        }
+
+        // CRÍTICO: Crear el crosshair si no existe
+        CrosshairUI crosshair = FindFirstObjectByType<CrosshairUI>();
+        if (crosshair == null)
+        {
+            CreateCrosshair();
+            crosshair = FindFirstObjectByType<CrosshairUI>();
+        }
+        
         if (crosshair != null)
         {
             crosshair.ForceToFront();
@@ -146,6 +162,42 @@ public class MainMenuController : MonoBehaviour
             // Si es un build, cierra la aplicación
             Application.Quit();
         #endif
+    }
+
+    /// <summary>
+    /// Crea el Crosshair si no existe
+    /// </summary>
+    private void CreateCrosshair()
+    {
+        Debug.Log("Creando Crosshair en Main Menu");
+        
+        // Crear Canvas para el Crosshair
+        GameObject canvasObj = new GameObject("CrosshairCanvas");
+        Canvas canvas = canvasObj.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 32767;
+        canvas.overrideSorting = true;
+        
+        // Hacer el canvas persistente
+        DontDestroyOnLoad(canvasObj);
+        
+        // Crear el Crosshair UI
+        GameObject crosshairObj = new GameObject("Crosshair");
+        crosshairObj.transform.SetParent(canvasObj.transform, false);
+        
+        RectTransform rectTransform = crosshairObj.AddComponent<RectTransform>();
+        rectTransform.anchoredPosition = Vector2.zero;
+        rectTransform.sizeDelta = new Vector2(64, 64);
+        
+        Image image = crosshairObj.AddComponent<Image>();
+        image.color = Color.white;
+        
+        CrosshairUI crosshairUI = crosshairObj.AddComponent<CrosshairUI>();
+        crosshairUI.crosshairImage = image;
+        crosshairUI.crosshairSize = new Vector2(64, 64);
+        crosshairUI.hideMouseCursor = true;
+        
+        Debug.Log("Crosshair creado exitosamente");
     }
 }
 

@@ -102,19 +102,16 @@ public class LevelUpUI : MonoBehaviour
         levelUpPanel.SetActive(true);
         Time.timeScale = 0f; // Pausar el juego
 
-        // CRÍTICO: Forzar el sorting order del canvas del LevelUpUI por debajo del crosshair
-        Canvas levelUpCanvas = GetComponentInParent<Canvas>();
-        if (levelUpCanvas != null)
+        // CRÍTICO: Mover el Crosshair al FINAL de la jerarquía para que esté ENCIMA del LevelUpPanel
+        CrosshairUI crosshairComponent = FindFirstObjectByType<CrosshairUI>();
+        if (crosshairComponent != null)
         {
-            levelUpCanvas.sortingOrder = 100; // SIEMPRE 100, muy por debajo del crosshair
-            levelUpCanvas.overrideSorting = true;
+            Debug.Log("LevelUpUI: Moviendo Crosshair al final de la jerarquía");
+            crosshairComponent.transform.SetAsLastSibling();
         }
-
-        // CRÍTICO: Forzar el crosshair al frente después de mostrar este panel
-        CrosshairUI crosshair = CrosshairUI.GetInstance();
-        if (crosshair != null)
+        else
         {
-            crosshair.ForceToFront();
+            Debug.LogWarning("LevelUpUI: No se encontró el componente CrosshairUI");
         }
 
         // Asegurar que existe un EventSystem para los botones
@@ -156,27 +153,11 @@ public class LevelUpUI : MonoBehaviour
         // Esperar un frame para que todos los elementos UI se creen
         yield return null;
         
-        // Forzar el Canvas del LevelUpUI a estar por debajo
-        Canvas levelUpCanvas = GetComponentInParent<Canvas>();
-        if (levelUpCanvas != null)
+        // Mover el Crosshair al final de la jerarquía
+        CrosshairUI crosshairComponent = FindFirstObjectByType<CrosshairUI>();
+        if (crosshairComponent != null)
         {
-            levelUpCanvas.sortingOrder = 100;
-            levelUpCanvas.overrideSorting = true;
-        }
-
-        // Forzar el crosshair al frente
-        CrosshairUI crosshair = CrosshairUI.GetInstance();
-        if (crosshair != null)
-        {
-            crosshair.ForceToFront();
-        }
-
-        // Esperar otro frame y forzar de nuevo
-        yield return null;
-        
-        if (crosshair != null)
-        {
-            crosshair.ForceToFront();
+            crosshairComponent.transform.SetAsLastSibling();
         }
     }
 
@@ -458,22 +439,22 @@ public class LevelUpUI : MonoBehaviour
             Cursor.visible = false;
         }
 
-        // CRÍTICO: Forzar el crosshair al frente mientras el UI está visible
+        // CRÍTICO: Mantener el Crosshair SIEMPRE al final de la jerarquía (encima de todo)
         if (isUIVisible)
         {
-            // Forzar el canvas del LevelUpUI por debajo
-            Canvas levelUpCanvas = GetComponentInParent<Canvas>();
-            if (levelUpCanvas != null && levelUpCanvas.sortingOrder >= 32767)
+            CrosshairUI crosshairComponent = FindFirstObjectByType<CrosshairUI>();
+            if (crosshairComponent != null)
             {
-                levelUpCanvas.sortingOrder = 100;
-                levelUpCanvas.overrideSorting = true;
-            }
-
-            // Forzar el crosshair al frente
-            CrosshairUI crosshair = CrosshairUI.GetInstance();
-            if (crosshair != null)
-            {
-                crosshair.ForceToFront();
+                // Si el crosshair no está al final, moverlo
+                Transform crosshairTransform = crosshairComponent.transform;
+                Canvas crosshairCanvas = crosshairTransform.parent.GetComponent<Canvas>();
+                if (crosshairCanvas != null)
+                {
+                    if (crosshairTransform.GetSiblingIndex() != crosshairCanvas.transform.childCount - 1)
+                    {
+                        crosshairTransform.SetAsLastSibling();
+                    }
+                }
             }
         }
         

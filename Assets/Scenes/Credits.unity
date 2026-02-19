@@ -331,6 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nombreEscenaMenu: MainMenu
   botonVolver: {fileID: 0}
+  creditsBGM: {fileID: 0}
 --- !u!1 &926183975
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +468,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926183975}
   m_CullTransparentMesh: 1
+--- !u!1 &1015450064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1015450066}
+  - component: {fileID: 1015450065}
+  m_Layer: 0
+  m_Name: CreditsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1015450065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015450064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e38602c0b4b7f447ae36e84875ca090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombreEscenaMenu: MainMenu
+  botonVolver: {fileID: 0}
+  creditsBGM: {fileID: 8300000, guid: 36d160f3de079f742b1b0e9dbcad447b, type: 3}
+--- !u!4 &1015450066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015450064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4507198, y: -0.11346235, z: 0.028740944}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1114846361
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,3 +960,4 @@ SceneRoots:
   - {fileID: 24034932}
   - {fileID: 471434448}
   - {fileID: 1171659919}
+  - {fileID: 1015450066}
