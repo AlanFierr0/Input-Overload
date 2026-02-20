@@ -6,6 +6,9 @@ public class Projectile : MonoBehaviour
     public int damage;
     public Rigidbody2D rb;
     public string teamOwner;
+    // Optional: the tag of the GameObject that spawned this projectile. If set, collisions
+    // treat this tag as the friendly team (so instantiators can override hardcoded teamOwner).
+    public string instigatorTag;
     public Vector2 direction;
 
     void Awake()
@@ -20,13 +23,16 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (hitInfo.CompareTag("Bullet") || hitInfo.CompareTag(teamOwner))
+        // Determine which tag should be considered "friendly" for this projectile.
+        string friendlyTag = string.IsNullOrEmpty(instigatorTag) ? teamOwner : instigatorTag;
+
+        if (hitInfo.CompareTag("Bullet") || (!string.IsNullOrEmpty(friendlyTag) && hitInfo.CompareTag(friendlyTag)))
         {
             return;
         }
 
         Health health = hitInfo.GetComponent<Health>();
-        if (health != null && !hitInfo.CompareTag(teamOwner))
+        if (health != null && (string.IsNullOrEmpty(friendlyTag) || !hitInfo.CompareTag(friendlyTag)))
         {
             health.TakeDamage(damage);
             Destroy(gameObject);

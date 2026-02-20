@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class PlayerAbilityController : MonoBehaviour
@@ -10,6 +11,8 @@ public class PlayerAbilityController : MonoBehaviour
     private Camera mainCamera;
     float activeTimer;
     float nextReadyTime;
+    // Fired when the player attempts to use an ability. Handlers can steal or react.
+    public static event Action<Ability, AbilitySlot> OnAbilityAttempt;
 
     [System.Serializable] 
     public class AbilitySlot
@@ -20,6 +23,10 @@ public class PlayerAbilityController : MonoBehaviour
         public AbilityState state = AbilityState.Ready;
         [HideInInspector] public float activeUntil = 0f;
         [HideInInspector] public float nextReadyTime = 0f;
+        // If the ability was stolen by a boss, this marks the slot as stolen
+        public bool isStolen = false;
+        // Damage to apply to the player when they try to use a stolen ability
+        public int stolenDamage = 1;
     }
 
     public List<AbilitySlot> slots = new();
@@ -99,13 +106,29 @@ public class PlayerAbilityController : MonoBehaviour
             switch (slot.state)
         {
             case AbilityState.Ready:
-                if (slot.ability != null && Input.GetKeyDown(slot.key) && Time.time >= nextReadyTime && slot.ability.CanStart(ctx))
+                if (Input.GetKeyDown(slot.key) && Time.time >= nextReadyTime)
                 {
-                    Debug.Log("PAC Ability " + slot.ability.name + " started.");
-                    slot.ability.OnStart(ctx);
-                    
+                    // Notify listeners that the player attempted to use this ability (ability may be null if already stolen)
+                    OnAbilityAttempt?.Invoke(slot.ability, slot);
 
-                    if (slot.ability.abilityDuration > 0f)
+                    // If the slot was marked as stolen, apply damage and skip execution
+                    if (slot.isStolen)
+                    {
+                        Debug.Log("PAC Ability " + (slot.ability != null ? slot.ability.name : "(stolen)") + " is stolen — applying damage to player.");
+                        if (health != null)
+                        {
+                            health.TakeDamage(slot.stolenDamage);
+                        }
+                        break;
+                    }
+
+                    // If ability exists and can start, execute it
+                    if (slot.ability != null && slot.ability.CanStart(ctx))
+                    {
+                        Debug.Log("PAC Ability " + slot.ability.name + " started.");
+                        slot.ability.OnStart(ctx);
+
+                        if (slot.ability.abilityDuration > 0f)
                         {
                             activeTimer = slot.ability.abilityDuration;
                             if (move) move.lockMovement = true;
@@ -116,6 +139,7 @@ public class PlayerAbilityController : MonoBehaviour
                             nextReadyTime = Time.time + slot.ability.abilityCooldown;
                             slot.state = AbilityState.Cooldown;
                         }
+                    }
                 }
                 break;
 

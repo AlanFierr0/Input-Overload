@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5373ed6c20ae47e4e94993b671ed583d, type: 3}
   m_Name: Room_03
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 0}
+  roomPrefab: {fileID: 4566497626242554571, guid: bfda0fe25499fe94c8064adbccf068fa, type: 3}
   roomPosition: {x: 0, y: 0, z: 0}
   enemyPrefabs: []
   roomBGM: {fileID: 8300000, guid: db465b57a54bf0c47b96f02b620204e9, type: 3}
