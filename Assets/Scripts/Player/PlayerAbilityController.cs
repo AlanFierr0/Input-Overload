@@ -13,6 +13,10 @@ public class PlayerAbilityController : MonoBehaviour
     float nextReadyTime;
     // Fired when the player attempts to use an ability. Handlers can steal or react.
     public static event Action<Ability, AbilitySlot> OnAbilityAttempt;
+    
+    // Events for HUD updates
+    public event Action<AbilitySlot> OnAbilityAdded;
+    public event Action<Ability> OnAbilityRemoved;
 
     [System.Serializable] 
     public class AbilitySlot
@@ -163,6 +167,31 @@ public class PlayerAbilityController : MonoBehaviour
                     slot.state = AbilityState.Ready;
                 }
                 break;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Adds an ability to the controller and fires OnAbilityAdded event for HUD updates
+    /// </summary>
+    public void AddAbility(AbilitySlot abilitySlot)
+    {
+        slots.Add(abilitySlot);
+        OnAbilityAdded?.Invoke(abilitySlot);
+    }
+    
+    /// <summary>
+    /// Removes an ability from the controller and fires OnAbilityRemoved event for HUD updates
+    /// </summary>
+    public void RemoveAbility(Ability ability)
+    {
+        for (int i = slots.Count - 1; i >= 0; i--)
+        {
+            if (slots[i].ability == ability)
+            {
+                slots.RemoveAt(i);
+                OnAbilityRemoved?.Invoke(ability);
+                return;
             }
         }
     }

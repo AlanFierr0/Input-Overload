@@ -593,7 +593,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.095
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -688,8 +688,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 1079371600}
-  fadeDuration: 1
-  bgmVolume: 0.5
+  fadeDuration: 0.1
+  bgmVolume: 0.1
 --- !u!4 &1079371602
 Transform:
   m_ObjectHideFlags: 0

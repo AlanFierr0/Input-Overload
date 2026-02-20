@@ -242,12 +242,13 @@ public class AbilityManager : MonoBehaviour
 
             if (!existsInController)
             {
-                abilityController.slots.Add(new PlayerAbilityController.AbilitySlot 
+                var newAbilitySlot = new PlayerAbilityController.AbilitySlot 
                 { 
                     ability = ability, 
                     key = key,
                     state = AbilityState.Ready
-                });
+                };
+                abilityController.AddAbility(newAbilitySlot);
                 Debug.Log("Gained ability: " + (string.IsNullOrEmpty(ability.abilityName) ? ability.name : ability.abilityName) + " assigned to key: " + key);
             }
             else

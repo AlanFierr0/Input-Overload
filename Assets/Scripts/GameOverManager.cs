@@ -36,21 +36,21 @@ public class GameOverManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         
         // Si no se asignó manualmente, buscar el Health del jugador
-        if (playerHealth == null)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
+            if (playerHealth == null)
             {
                 playerHealth = player.GetComponent<Health>();
             }
-            
-            if (playerHealth == null)
-            {
-                Debug.LogError("GameOverManager: No se encontró el componente Health del jugador! " +
-                              "Asegúrate de que el jugador tenga el tag 'Player' y el componente Health.");
-                enabled = false;
-                return;
-            }
+        }
+        
+        if (playerHealth == null)
+        {
+            Debug.LogError("GameOverManager: No se encontró el componente Health del jugador! " +
+                          "Asegúrate de que el jugador tenga el tag 'Player' y el componente Health.");
+            enabled = false;
+            return;
         }
         
         // Suscribirse al evento de muerte del jugador

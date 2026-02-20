@@ -12,8 +12,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource bgmAudioSource;
     
     [Header("Settings")]
-    [SerializeField] private float fadeDuration = 1f;
-    [SerializeField] private float bgmVolume = 0.5f;
+    [SerializeField] private float fadeDuration;
+    [SerializeField] private float bgmVolume;
 
     private static AudioManager _instance;
     public static AudioManager Instance => _instance;
@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Reproduce música con fade in/out
+    /// Reproduce música directamente sin fade
     /// </summary>
     public void PlayBGM(AudioClip clip, bool loop = true)
     {
@@ -59,26 +59,32 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        // Si hay fade actual, cancelarlo
+        // Detener fade si hay uno en curso
         if (isFading)
         {
             StopAllCoroutines();
+            isFading = false;
         }
 
-        StartCoroutine(CrossFadeBGM(clip, loop));
+        currentBGM = clip;
+        bgmAudioSource.loop = loop;
+        bgmAudioSource.clip = clip;
+        bgmAudioSource.volume = bgmVolume;
+        bgmAudioSource.Play();
     }
 
     /// <summary>
-    /// Detiene la música con fade out
+    /// Detiene la música directamente
     /// </summary>
     public void StopBGM()
     {
         if (isFading)
         {
             StopAllCoroutines();
+            isFading = false;
         }
 
-        StartCoroutine(FadeOutBGM());
+        bgmAudioSource.Stop();
     }
 
     /// <summary>
@@ -115,78 +121,4 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Realiza crossfade entre canciones
-    /// </summary>
-    private IEnumerator CrossFadeBGM(AudioClip nextClip, bool loop)
-    {
-        isFading = true;
-
-        // Fade out de la canción actual
-        if (bgmAudioSource.isPlaying)
-        {
-            yield return FadeOut(bgmAudioSource, fadeDuration);
-        }
-
-        // Cambiar a nueva canción
-        currentBGM = nextClip;
-        bgmAudioSource.loop = loop;
-        bgmAudioSource.clip = nextClip;
-        bgmAudioSource.PlayOneShot(nextClip);
-        bgmAudioSource.Play();
-
-        // Fade in de la nueva canción
-        yield return FadeIn(bgmAudioSource, fadeDuration);
-
-        isFading = false;
-    }
-
-    /// <summary>
-    /// Fade out de un AudioSource
-    /// </summary>
-    private IEnumerator FadeOutBGM()
-    {
-        isFading = true;
-        yield return FadeOut(bgmAudioSource, fadeDuration);
-        bgmAudioSource.Stop();
-        isFading = false;
-    }
-
-    /// <summary>
-    /// Anima fade in de un AudioSource
-    /// </summary>
-    private IEnumerator FadeIn(AudioSource audioSource, float duration)
-    {
-        float elapsed = 0f;
-        float startVolume = 0f;
-        float endVolume = bgmVolume;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(startVolume, endVolume, elapsed / duration);
-            yield return null;
-        }
-
-        audioSource.volume = endVolume;
-    }
-
-    /// <summary>
-    /// Anima fade out de un AudioSource
-    /// </summary>
-    private IEnumerator FadeOut(AudioSource audioSource, float duration)
-    {
-        float elapsed = 0f;
-        float startVolume = audioSource.volume;
-        float endVolume = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(startVolume, endVolume, elapsed / duration);
-            yield return null;
-        }
-
-        audioSource.volume = 0f;
-    }
 }

@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5373ed6c20ae47e4e94993b671ed583d, type: 3}
   m_Name: Room_03
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 4566497626242554571, guid: bfda0fe25499fe94c8064adbccf068fa, type: 3}
+  roomPrefab: {fileID: 4566497626242554571, guid: c3b7ef16f74ed95418df251872550ed7, type: 3}
   roomPosition: {x: 0, y: 0, z: 0}
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 7011812751749782023, guid: 0c211780b1fa076488d7a09c6b74cc96, type: 3}
+  - {fileID: 7011812751749782023, guid: 0c211780b1fa076488d7a09c6b74cc96, type: 3}
+  - {fileID: 7011812751749782023, guid: 0c211780b1fa076488d7a09c6b74cc96, type: 3}
+  - {fileID: 7011812751749782023, guid: 0c211780b1fa076488d7a09c6b74cc96, type: 3}
+  - {fileID: 7011812751749782023, guid: 0c211780b1fa076488d7a09c6b74cc96, type: 3}
+  - {fileID: 7011812751749782023, guid: 0c211780b1fa076488d7a09c6b74cc96, type: 3}
   roomBGM: {fileID: 8300000, guid: db465b57a54bf0c47b96f02b620204e9, type: 3}

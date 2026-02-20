@@ -8,6 +8,18 @@ public class BossEnemy : Enemy
     public int defaultStolenDamage = 1;
     public string bossTag = "Enemy";
 
+    [Header("Sprite Animation")]
+    public Sprite spriteIdle;           // Mirando al frente (idle)
+    public Sprite spriteRight;          // Mirando a la derecha
+    public Sprite spriteLeft;           // Mirando a la izquierda
+    public Sprite spriteAttack;         // Atacando
+    
+    private SpriteRenderer spriteRenderer;
+    private Vector2 currentDirection = Vector2.right;
+    private bool isAttacking = false;
+    private float attackAnimationTimer = 0f;
+    private float attackAnimationDuration = 0.3f; // Duración de la animación de ataque
+
     // Abilities the boss has stolen
     public List<Ability> stolenAbilities = new List<Ability>();
     // Map stolen ability to the player's slot so we can return it later
@@ -21,6 +33,7 @@ public class BossEnemy : Enemy
     {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         if (string.IsNullOrEmpty(tag)) tag = bossTag; // ensure tag present
     }
 
@@ -134,6 +147,10 @@ public class BossEnemy : Enemy
         {
             player.GetComponent<Health>().TakeDamage(damage);
             attackTimer = attackCooldown;
+            
+            // Activar animación de ataque
+            isAttacking = true;
+            attackAnimationTimer = attackAnimationDuration;
         }
     }
 
@@ -141,13 +158,74 @@ public class BossEnemy : Enemy
     {
         if (rb == null || player == null) return;
 
-        Vector2 direction = (rb.position - (Vector2)player.position).normalized;
-        rb.MovePosition(rb.position - direction * speed * Time.fixedDeltaTime);
+        // Calcular dirección hacia el jugador
+        Vector2 directionToPlayer = ((Vector2)player.position - rb.position).normalized;
+        currentDirection = directionToPlayer;
+        
+        // Moverse hacia el jugador
+        rb.MovePosition(rb.position + directionToPlayer * speed * Time.fixedDeltaTime);
+    }
+    
+    /// <summary>
+    /// Actualiza el sprite basado en la dirección y estado del boss
+    /// </summary>
+    private void UpdateBossSprite()
+    {
+        if (spriteRenderer == null) return;
+        
+        // Si está atacando, mostrar sprite de ataque
+        if (isAttacking)
+        {
+            if (spriteAttack != null)
+                spriteRenderer.sprite = spriteAttack;
+            
+            attackAnimationTimer -= Time.deltaTime;
+            if (attackAnimationTimer <= 0f)
+            {
+                isAttacking = false;
+            }
+            return;
+        }
+        
+        // Determinar sprite basado en dirección
+        float directionAngle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
+        
+        // Normalizar ángulo a 0-360
+        if (directionAngle < 0)
+            directionAngle += 360;
+        
+        // Determinar sprite basado en el ángulo
+        // 0° = derecha, 90° = arriba, 180° = izquierda, 270° = abajo
+        Sprite targetSprite = spriteIdle; // Por defecto idle
+        
+        if (directionAngle >= 315 || directionAngle < 45)
+        {
+            // Mirando a la derecha
+            targetSprite = spriteRight != null ? spriteRight : spriteIdle;
+        }
+        else if (directionAngle >= 45 && directionAngle < 135)
+        {
+            // Mirando hacia arriba
+            targetSprite = spriteIdle != null ? spriteIdle : spriteIdle;
+        }
+        else if (directionAngle >= 135 && directionAngle < 225)
+        {
+            // Mirando a la izquierda
+            targetSprite = spriteLeft != null ? spriteLeft : spriteIdle;
+        }
+        else
+        {
+            // Mirando hacia abajo
+            targetSprite = spriteIdle != null ? spriteIdle : spriteIdle;
+        }
+        
+        spriteRenderer.sprite = targetSprite;
     }
 
     void FixedUpdate()
     {
         Move();
         Attack();
+        UpdateBossSprite();
     }
 }

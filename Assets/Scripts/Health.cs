@@ -13,6 +13,7 @@ public class Health : MonoBehaviour
     public bool destroyOnDeath = true;
     
     public event Action OnDeath;
+    public event Action OnHealthChanged;
     
     void Awake()
     {
@@ -30,17 +31,18 @@ public class Health : MonoBehaviour
         if (!vulnerable) return; // No tomar daño si no es vulnerable
         
         currentHealth = Mathf.Max(0, currentHealth - amount);
+        OnHealthChanged?.Invoke();
+        
         if (currentHealth <= 0)
         {
             OnDeath?.Invoke();
-            
+
             if (destroyOnDeath)
             {
                 Destroy(gameObject);
             }
             else
             {
-                // Si no se destruye (jugador), desactivar visualmente
                 DisableVisuals();
             }
         }
@@ -87,6 +89,7 @@ public class Health : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        OnHealthChanged?.Invoke();
     }
     
 

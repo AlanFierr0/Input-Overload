@@ -17,44 +17,64 @@ public class Dasher : Enemy
 
     private float lastDashTime = -999f;
     private bool isDashingOrWindup = false;
-    private Vector2 lockedDashDir;          
+    private Vector2 lockedDashDir;
+    private Coroutine dashCoroutine;
 
     void Start()
     {
         if (dasher == null) dasher = GetComponent<Rigidbody2D>();
+        
+        // Bloquear rotación en eje Z para evitar que el Dasher rote
+        if (dasher != null)
+        {
+            dasher.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
     }
 
     public override void Move()
     {
-        Vector2 direction = (dasher.position - (Vector2)player.position).normalized;
+        Vector2 directionToPlayer = ((Vector2)player.position - dasher.position).normalized;
         float distance = Vector2.Distance(dasher.position, player.position);
 
         if (isDashingOrWindup) return;
 
         if (distance < dashRange && Time.time >= lastDashTime + dashCooldown)
         {
-            StartCoroutine(DashAfterDelay(direction));
+            if (dashCoroutine != null)
+            {
+                StopCoroutine(dashCoroutine);
+            }
+            dashCoroutine = StartCoroutine(DashAfterDelay(directionToPlayer));
         }
         else if (distance < dashRange)
         {
-            dasher.MovePosition(dasher.position + direction * speed * Time.fixedDeltaTime);
+            dasher.linearVelocity = Vector2.zero;
         }
         else
         {
-            dasher.MovePosition(dasher.position - direction * speed * Time.fixedDeltaTime);
+            dasher.MovePosition(dasher.position + directionToPlayer * speed * Time.fixedDeltaTime);
         }
     }
 
     private IEnumerator DashAfterDelay(Vector2 dir)
     {
-        dasher.linearVelocity = Vector2.zero;
         isDashingOrWindup = true;
+        dasher.linearVelocity = Vector2.zero;
+        dasher.constraints = RigidbodyConstraints2D.FreezeAll;
+        
         lockedDashDir = dir.normalized;
         yield return new WaitForSeconds(dashDelay);
-        dasher.AddForce(-lockedDashDir * dashForce, ForceMode2D.Impulse);
+        
+        dasher.constraints = RigidbodyConstraints2D.None;
+        dasher.linearVelocity = Vector2.zero;
+        dasher.AddForce(lockedDashDir * dashForce, ForceMode2D.Impulse);
         lastDashTime = Time.time;
-        yield return new WaitForSeconds(0.2f); // tiempo de dash
+        
+        yield return new WaitForSeconds(0.5f);
+        
         isDashingOrWindup = false;
+        dasher.linearVelocity = Vector2.zero;
+        dashCoroutine = null;
     }
 
     public override void Attack()

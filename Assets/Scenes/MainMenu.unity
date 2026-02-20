@@ -1372,8 +1372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 2050513125}
-  fadeDuration: 1
-  bgmVolume: 0.5
+  fadeDuration: 0.1
+  bgmVolume: 0.1
 --- !u!4 &2050513124
 Transform:
   m_ObjectHideFlags: 0
