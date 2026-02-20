@@ -111,6 +111,7 @@ public class AbilityManager : MonoBehaviour
         
         // Crear una copia de las habilidades disponibles para no modificar las originales
         List<Ability> abilitiesCopy = poolManager.GetAvailableAbilities();
+        abilitiesCopy.RemoveAll(ability => ability == null);
         List<KeyCode> availableKeys = new List<KeyCode>(predefinedKeys);
 
         // FILTRAR EXPLÍCITAMENTE LAS TECLAS WASD ANTES DE GENERAR OPCIONES
@@ -143,6 +144,12 @@ public class AbilityManager : MonoBehaviour
             option.ability = abilitiesCopy[abilityIndex];
             // Remover solo de la lista temporal para evitar duplicados en las opciones
             abilitiesCopy.RemoveAt(abilityIndex);
+
+            if (option.ability == null)
+            {
+                i--;
+                continue;
+            }
 
             // Seleccionar keybind aleatorio de las disponibles
             int keyIndex = Random.Range(0, availableKeys.Count);

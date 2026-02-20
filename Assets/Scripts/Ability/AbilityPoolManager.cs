@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 /// <summary>
 /// Manager global que contiene el pool de habilidades disponibles en el juego.
@@ -29,6 +32,8 @@ public class AbilityPoolManager : MonoBehaviour
     [Header("Available Abilities Pool")]
     [Tooltip("Pool de todas las habilidades disponibles en el juego")]
     public List<Ability> availableAbilities = new();
+    [Tooltip("Lista completa de habilidades para auto-llenar el pool")]
+    public List<Ability> allAbilities = new();
     private List<Ability> initialAvailableAbilities = new();
 
     void Awake()
@@ -44,9 +49,46 @@ public class AbilityPoolManager : MonoBehaviour
             return;
         }
 
+        EnsureAllAbilitiesList();
+
+        if (availableAbilities == null)
+        {
+            availableAbilities = new List<Ability>();
+        }
+
+        if (availableAbilities.Count < 3 && allAbilities != null && allAbilities.Count > 0)
+        {
+            availableAbilities = new List<Ability>(allAbilities);
+        }
+
         if (initialAvailableAbilities == null || initialAvailableAbilities.Count == 0)
         {
             initialAvailableAbilities = new List<Ability>(availableAbilities);
+        }
+    }
+
+    private void EnsureAllAbilitiesList()
+    {
+#if UNITY_EDITOR
+        if (allAbilities == null || allAbilities.Count == 0)
+        {
+            allAbilities = new List<Ability>();
+            string[] guids = AssetDatabase.FindAssets("t:Ability");
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                Ability ability = AssetDatabase.LoadAssetAtPath<Ability>(path);
+                if (ability != null && !allAbilities.Contains(ability))
+                {
+                    allAbilities.Add(ability);
+                }
+            }
+        }
+#endif
+
+        if ((allAbilities == null || allAbilities.Count == 0) && availableAbilities != null && availableAbilities.Count > 0)
+        {
+            allAbilities = new List<Ability>(availableAbilities);
         }
     }
 
