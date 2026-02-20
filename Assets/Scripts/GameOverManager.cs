@@ -102,6 +102,13 @@ public class GameOverManager : MonoBehaviour
         {
             pauseMenu.ResumeGame();
         }
+
+        // Resetear habilidades para la proxima partida
+        AbilityManager abilityManager = FindFirstObjectByType<AbilityManager>();
+        if (abilityManager != null)
+        {
+            abilityManager.ResetAllAbilities();
+        }
         
         // Pausar el juego
         Time.timeScale = 0f;

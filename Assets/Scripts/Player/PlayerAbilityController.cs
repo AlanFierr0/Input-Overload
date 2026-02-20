@@ -172,6 +172,22 @@ public class PlayerAbilityController : MonoBehaviour
     }
     
     /// <summary>
+    /// Removes all abilities from the controller and updates HUD
+    /// </summary>
+    public void ClearAbilities()
+    {
+        for (int i = slots.Count - 1; i >= 0; i--)
+        {
+            Ability removedAbility = slots[i].ability;
+            slots.RemoveAt(i);
+            if (removedAbility != null)
+            {
+                OnAbilityRemoved?.Invoke(removedAbility);
+            }
+        }
+    }
+
+    /// <summary>
     /// Adds an ability to the controller and fires OnAbilityAdded event for HUD updates
     /// </summary>
     public void AddAbility(AbilitySlot abilitySlot)

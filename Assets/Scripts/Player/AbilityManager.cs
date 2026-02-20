@@ -26,6 +26,12 @@ public class AbilityManager : MonoBehaviour
     KeyCode.F7, KeyCode.F8, KeyCode.F9, KeyCode.F10, KeyCode.F11, KeyCode.F12
     };
     // El pool de habilidades ahora está en AbilityPoolManager (global)
+    private List<KeyCode> initialPredefinedKeys = new();
+
+    void Awake()
+    {
+        initialPredefinedKeys = new List<KeyCode>(predefinedKeys);
+    }
 
     void Start()
     {
@@ -259,6 +265,40 @@ public class AbilityManager : MonoBehaviour
         else
         {
             Debug.LogError("AbilityManager: abilityController is null! Cannot add ability to player. Make sure PlayerAbilityController is attached to the player GameObject.");
+        }
+    }
+
+    /// <summary>
+    /// Resetea las habilidades del jugador y restaura el pool y las teclas disponibles
+    /// </summary>
+    public void ResetAllAbilities()
+    {
+        AbilityPoolManager poolManager = AbilityPoolManager.Instance;
+        if (poolManager != null)
+        {
+            poolManager.ResetPool();
+        }
+
+        predefinedKeys = new List<KeyCode>(initialPredefinedKeys);
+
+        if (abilityController == null)
+        {
+            abilityController = GetComponent<PlayerAbilityController>();
+            if (abilityController == null)
+            {
+                abilityController = FindFirstObjectByType<PlayerAbilityController>();
+            }
+        }
+
+        if (abilityController != null)
+        {
+            abilityController.ClearAbilities();
+        }
+
+        AbilityHUD hud = FindFirstObjectByType<AbilityHUD>();
+        if (hud != null)
+        {
+            hud.RefreshHUD();
         }
     }
 }

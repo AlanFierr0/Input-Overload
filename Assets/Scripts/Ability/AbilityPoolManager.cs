@@ -29,6 +29,7 @@ public class AbilityPoolManager : MonoBehaviour
     [Header("Available Abilities Pool")]
     [Tooltip("Pool de todas las habilidades disponibles en el juego")]
     public List<Ability> availableAbilities = new();
+    private List<Ability> initialAvailableAbilities = new();
 
     void Awake()
     {
@@ -40,6 +41,12 @@ public class AbilityPoolManager : MonoBehaviour
         else if (_instance != this)
         {
             Destroy(gameObject);
+            return;
+        }
+
+        if (initialAvailableAbilities == null || initialAvailableAbilities.Count == 0)
+        {
+            initialAvailableAbilities = new List<Ability>(availableAbilities);
         }
     }
 
@@ -76,6 +83,14 @@ public class AbilityPoolManager : MonoBehaviour
     public int GetAvailableCount()
     {
         return availableAbilities.Count;
+    }
+
+    /// <summary>
+    /// Restaura el pool inicial de habilidades (por ejemplo al perder la partida)
+    /// </summary>
+    public void ResetPool()
+    {
+        availableAbilities = new List<Ability>(initialAvailableAbilities);
     }
 }
 
