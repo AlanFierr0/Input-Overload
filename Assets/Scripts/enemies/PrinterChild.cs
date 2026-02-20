@@ -5,11 +5,12 @@ public class PrinterChild : Enemy
     [HideInInspector] public Rigidbody2D printerChild;
     public float attackCooldown;
     private float attackTimer;
+    public float knockbackForce = 5f; // Fuerza del knockback
 
     void Start()
     {
         if (printerChild == null) printerChild = GetComponent<Rigidbody2D>();
-        attackTimer = attackCooldown;
+        attackTimer = 0f; // Inicializar para que pueda atacar desde el inicio
     }
 
     public override void Move()
@@ -26,7 +27,19 @@ public class PrinterChild : Enemy
         if (Vector2.Distance(printerChild.position, player.position) < 1.5f && attackTimer <= 0f)
         {
             player.GetComponent<Health>().TakeDamage(damage);
-            attackTimer = attackCooldown;
+            
+            // Calcular dirección del knockback
+            Vector2 knockbackDirection = ((Vector2)player.position - printerChild.position).normalized;
+            
+            // Knockback al player
+            Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                playerRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+            }
+            
+            // Destruir la hoja después de golpear
+            Destroy(gameObject);
         }
     }
 

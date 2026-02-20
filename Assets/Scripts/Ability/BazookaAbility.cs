@@ -5,6 +5,7 @@ public class BazookaAbility : Ability
     public GameObject rocketPrefab;
     public float explosionRadius;
     public float rocketSpeed;
+    public int rocketDamage = 5; // Daño del cohete (configurable en Inspector)
 
     public override bool CanStart(AbilityContext2D ctx)
     {
@@ -29,5 +30,6 @@ public class BazookaAbility : Ability
         projectile.teamOwner = ctx.caster.tag;
         projectile.direction = shootDir;
         projectile.speed = rocketSpeed;
+        projectile.damage = rocketDamage; // Asignar el daño configurable
     }
 }

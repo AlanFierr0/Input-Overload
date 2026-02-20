@@ -65,7 +65,7 @@ public class Dasher : Enemy
         lockedDashDir = dir.normalized;
         yield return new WaitForSeconds(dashDelay);
         
-        dasher.constraints = RigidbodyConstraints2D.None;
+        dasher.constraints = RigidbodyConstraints2D.FreezeRotation; // Mantener rotación congelada
         dasher.linearVelocity = Vector2.zero;
         dasher.AddForce(lockedDashDir * dashForce, ForceMode2D.Impulse);
         lastDashTime = Time.time;
@@ -74,6 +74,7 @@ public class Dasher : Enemy
         
         isDashingOrWindup = false;
         dasher.linearVelocity = Vector2.zero;
+        dasher.constraints = RigidbodyConstraints2D.FreezeRotation; // Forzar congelación de rotación Z
         dashCoroutine = null;
     }
 

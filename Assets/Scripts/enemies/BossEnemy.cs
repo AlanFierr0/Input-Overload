@@ -35,6 +35,7 @@ public class BossEnemy : Enemy
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (string.IsNullOrEmpty(tag)) tag = bossTag; // ensure tag present
+        attackTimer = 0f; // Inicializar para que pueda atacar
     }
 
     void OnEnable()

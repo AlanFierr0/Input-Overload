@@ -145,6 +145,7 @@ public class MainMenuController : MonoBehaviour
     public void MostrarCreditos()
     {
         Debug.Log("Cargando escena de créditos: " + nombreEscenaCreditos);
+        // El CreditsController en la escena de créditos se encargará de reproducir la música correcta
         SceneManager.LoadScene(nombreEscenaCreditos);
     }
 

@@ -80,10 +80,10 @@ public class AbilityHUDSlot : MonoBehaviour
     /// </summary>
     public void UpdateDisplay()
     {
-        if (abilitySlot == null || abilitySlot.ability == null)
+        if (abilitySlot == null)
             return;
         
-        // Actualizar indicador de habilidad robada
+        // Actualizar indicador de habilidad robada (incluso si ability == null)
         if (stolenIndicatorGO != null)
         {
             CanvasGroup stolenCanvasGroup = stolenIndicatorGO.GetComponent<CanvasGroup>();
@@ -92,6 +92,10 @@ public class AbilityHUDSlot : MonoBehaviour
                 stolenCanvasGroup.alpha = abilitySlot.isStolen ? 1f : 0f;
             }
         }
+        
+        // Si no hay habilidad y no está robada, retornar
+        if (abilitySlot.ability == null && !abilitySlot.isStolen)
+            return;
         
         UpdateCooldownDisplay();
     }
@@ -113,6 +117,10 @@ public class AbilityHUDSlot : MonoBehaviour
             }
             return;
         }
+        
+        // Si no hay habilidad, no actualizar cooldown
+        if (abilitySlot.ability == null)
+            return;
         
         // Solo mostrar cooldown si está en estado Cooldown
         if (abilitySlot.state == AbilityState.Cooldown)

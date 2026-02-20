@@ -178,12 +178,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: 
   health: {fileID: 0}
-  speed: 2
-  damage: 4
+  speed: 4
+  damage: 1
   expReward: 0
   player: {fileID: 0}
   tank: {fileID: 0}
   attackCooldown: 1
+  knockbackForce: 40
 --- !u!114 &5185114516175666878
 MonoBehaviour:
   m_ObjectHideFlags: 0

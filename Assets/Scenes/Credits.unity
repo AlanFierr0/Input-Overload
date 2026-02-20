@@ -544,7 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nombreEscenaMenu: MainMenu
   botonVolver: {fileID: 0}
-  creditsBGM: {fileID: 0}
+  creditsBGM: {fileID: 8300000, guid: 36d160f3de079f742b1b0e9dbcad447b, type: 3}
 --- !u!4 &1015450066
 Transform:
   m_ObjectHideFlags: 0

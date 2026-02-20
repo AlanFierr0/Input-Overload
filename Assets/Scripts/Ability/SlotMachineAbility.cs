@@ -14,21 +14,21 @@ public class SlotConfig
     public GameObject projectilePrefab;
     public int jackpotProjectiles;
     public int projectileSpeed;
-}
+    public int projectileDamage = 1; // Daño del projectile (configurable)
 
 public class SlotMachineAbility : Ability
 {
     public List<SlotConfig> projectileList;
     private Dictionary<Slots, GameObject> slotProjectiles;
-    public float jackpotProbability = 0.2f;
-    public int slotDuration = 3;
-    public int numberOfProjectile = 1;
+    public float jackpotProbability = 0.4f;  // Aumentado a 40% para más probabilidades de jackpot
+    public int slotDuration = 1;  // Reducido a 1 segundo para disparar más rápido
+    public int numberOfProjectile = 3;  // Aumentado a 3 projectiles por defecto
 
     private Dictionary<Slots, float> slotProbabilities = new Dictionary<Slots, float>
     {
-        { Slots.clover, 0.60f },   // 60%
-        { Slots.star,   0.30f },   // 30%
-        { Slots.rocket, 0.10f }    // 10%
+        { Slots.clover, 0.50f },   // 50%
+        { Slots.star,   0.35f },   // 35%
+        { Slots.rocket, 0.15f }    // 15% - aumentado rocket para más variedad
     };
     public override bool CanStart(AbilityContext2D ctx)
     {
@@ -71,6 +71,7 @@ public class SlotMachineAbility : Ability
             proj.teamOwner = "Player";
             var slotConfig = projectileList.Find(p => p.slot == result);
             proj.speed = slotConfig.projectileSpeed;
+            proj.damage = slotConfig.projectileDamage; // Asignar damage
             yield break;
         } else
         {
@@ -118,7 +119,9 @@ public class SlotMachineAbility : Ability
             proj.direction = dir;
             proj.teamOwner = "Player";
             proj.speed = slotConfig.projectileSpeed;
+            proj.damage = slotConfig.projectileDamage; // Asignar damage
             angleDeg += angleStep;
         }
     }
+}
 }
